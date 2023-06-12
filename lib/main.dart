@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
                 const ColorScheme.light(primary: Globals.secondaryColor),
             scaffoldBackgroundColor: Globals.backgroundColor,
             appBarTheme: const AppBarTheme(
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-            )),
+                elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: (settings) => onGenerateRoute(settings),
         home: const AuthScreen());
   }
