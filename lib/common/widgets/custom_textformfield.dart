@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final bool? obscure;
   const CustomTextFormField({
     Key? key,
     required this.controller,
     required this.hintText,
+    this.obscure,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,13 @@ class CustomTextFormField extends StatelessWidget {
         enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black)),
       ),
-      validator: (value) {},
+      obscureText: obscure ?? false,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Enter your $hintText';
+        }
+        return null;
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/custom_textformfield.dart';
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signin, signup }
@@ -17,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final AuthService authService = AuthService();
 
   final GlobalKey<FormState> _signInKey = GlobalKey();
   final GlobalKey<FormState> _signUpKey = GlobalKey();
@@ -64,16 +66,28 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              controller: _emailController, hintText: 'Name'),
+                              controller: _emailController, hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
-                              controller: _nameController, hintText: 'Email'),
+                              controller: _nameController, hintText: 'Name'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
+                              obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),
                           const SizedBox(height: 10),
-                          CustomButton(text: 'Create Account', onPressed: () {})
+                          CustomButton(
+                              text: 'Create Account',
+                              onPressed: () {
+                                if (_signUpKey.currentState!.validate()) {
+                                  authService.signUpUser(
+                                    context: context,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    name: _nameController.text,
+                                  );
+                                }
+                              })
                         ],
                       ),
                     ),
@@ -107,13 +121,14 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              controller: _nameController, hintText: 'Email'),
+                              controller: _emailController, hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
+                              obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),
                           const SizedBox(height: 10),
-                          CustomButton(text: 'Create Account', onPressed: () {})
+                          CustomButton(text: 'Sign In', onPressed: () {})
                         ],
                       ),
                     ),
