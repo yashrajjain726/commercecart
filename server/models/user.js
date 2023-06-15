@@ -22,10 +22,6 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    validate: {
-      validator: (value) => value.length >= 8,
-      message: "Please enter password greater or equal to 8 characters",
-    },
   },
   address: {
     default: "",
