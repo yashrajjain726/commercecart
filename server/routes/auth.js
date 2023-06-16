@@ -3,6 +3,7 @@ const authRouter = express.Router();
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const auth = require("../middleware/auth");
 
 // SIGN UP API
 authRouter.post("/api/signup", async (request, response) => {
@@ -45,11 +46,27 @@ authRouter.post("/api/signin", async (request, response) => {
     //  token:token
     //  .. : ..
     // }
-
-    response.json;
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
+});
+
+authRouter.post("/api/validate/token", async (request, response) => {
+  try {
+    const token = request.header("x-auth-token");
+    if (!token) return response.json(false);
+    const isVerifiedToken = jwt.verify(token, "passwordKey");
+    if (!isVerifiedToken) return response.json(false);
+    const user = await User.findById(isVerifiedToken.id);
+    if (!user) return response.json(false);
+    response.json(true);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+authRouter.get("/", auth, async (request, response) => {
+  const user = await User.findById(request.user);
+  response.json({ ...user._doc, token: request.token });
 });
 
 module.exports = authRouter;

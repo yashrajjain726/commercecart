@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Globals {
-  static const URI = 'http://192.168.1.7:3000';
+  static const URI = 'http://192.168.1.3:3000';
 
   // COLORS
   static const appBarGradient = LinearGradient(
@@ -17,4 +17,7 @@ class Globals {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+
+  // SHARED PREFERNCES
+  static const AUTHTOKEN = 'x-auth-token';
 }
