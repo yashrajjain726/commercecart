@@ -65,7 +65,7 @@ authRouter.post("/api/validate/token", async (request, response) => {
   }
 });
 authRouter.get("/", auth, async (request, response) => {
-  const user = await User.findById(request.user);
+  const user = await User.findById(request.user); // here we are searching user by id that in passed in auth middleware
   response.json({ ...user._doc, token: request.token });
 });
 

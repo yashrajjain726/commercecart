@@ -12,7 +12,7 @@ const auth = async (request, response, next) => {
       return response
         .status(401)
         .json({ message: "Token verification failed, authorization denied" });
-    request.user = isVerifiedToken.id;
+    request.user = isVerifiedToken.id; // we will find user by id, so we are making request.user = id
     request.token = token;
     next();
   } catch (error) {
