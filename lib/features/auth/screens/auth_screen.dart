@@ -128,7 +128,17 @@ class _AuthScreenState extends State<AuthScreen> {
                               controller: _passwordController,
                               hintText: 'Password'),
                           const SizedBox(height: 10),
-                          CustomButton(text: 'Sign In', onPressed: () {})
+                          CustomButton(
+                              text: 'Sign In',
+                              onPressed: () {
+                                if (_signInKey.currentState!.validate()) {
+                                  authService.sigInUser(
+                                    context: context,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+                                }
+                              })
                         ],
                       ),
                     ),
