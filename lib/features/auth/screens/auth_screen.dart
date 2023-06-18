@@ -66,12 +66,35 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              controller: _emailController, hintText: 'Email'),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the email';
+                                }
+                                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                                  return "Please enter a valid email address";
+                                }
+                                return null;
+                              },
+                              controller: _emailController,
+                              hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
-                              controller: _nameController, hintText: 'Name'),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the name';
+                                }
+                                return null;
+                              },
+                              controller: _nameController,
+                              hintText: 'Name'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the password';
+                                }
+                                return null;
+                              },
                               obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),
@@ -121,14 +144,40 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              controller: _emailController, hintText: 'Email'),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the email';
+                                }
+                                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                                  return "Please enter a valid email address";
+                                }
+                                return null;
+                              },
+                              controller: _emailController,
+                              hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the password';
+                                }
+                                return null;
+                              },
                               obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),
                           const SizedBox(height: 10),
-                          CustomButton(text: 'Sign In', onPressed: () {})
+                          CustomButton(
+                              text: 'Sign In',
+                              onPressed: () {
+                                if (_signInKey.currentState!.validate()) {
+                                  authService.sigInUser(
+                                    context: context,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+                                }
+                              })
                         ],
                       ),
                     ),

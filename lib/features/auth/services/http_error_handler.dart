@@ -10,6 +10,7 @@ void httpErrorHandler({
   required BuildContext context,
   required VoidCallback onSuccess,
 }) {
+  print(response);
   switch (response.statusCode) {
     case 200:
       onSuccess();
