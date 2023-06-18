@@ -1,8 +1,8 @@
+import 'package:commercecart/common/widgets/bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/routes.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
               elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const HomeScreen()
+          ? const BottomBar()
           : const AuthScreen(),
     );
   }
