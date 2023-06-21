@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           colorScheme: const ColorScheme.light(primary: Globals.secondaryColor),
           scaffoldBackgroundColor: Globals.backgroundColor,
           appBarTheme: const AppBarTheme(
-              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
+              elevation: 0, iconTheme: IconThemeData(color: Colors.white))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
           ? const BottomBar()

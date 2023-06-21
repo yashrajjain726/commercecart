@@ -1,4 +1,5 @@
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/features/account/screens/account_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
@@ -17,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(child: Text('Account Page')),
+    const AccountScreen(),
     const Center(child: Text('Cart Page'))
   ];
   @override
