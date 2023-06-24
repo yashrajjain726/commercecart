@@ -1,6 +1,7 @@
-import 'package:commercecart/common/widgets/bottombar.dart';
+import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/routes.dart';
+import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -41,7 +42,9 @@ class _MyAppState extends State<MyApp> {
               elevation: 0, iconTheme: IconThemeData(color: Colors.white))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
+          ? (Provider.of<UserProvider>(context).user.type == "user")
+              ? UserBottomBar()
+              : AdminBottomBar()
           : const AuthScreen(),
     );
   }

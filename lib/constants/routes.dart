@@ -1,4 +1,5 @@
-import 'package:commercecart/common/widgets/bottombar.dart';
+import 'package:commercecart/common/widgets/user_bottombar.dart';
+import 'package:commercecart/features/admin/screens/add_product_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/features/no_page_found.dart';
@@ -10,8 +11,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return buildRoute(screen: const AuthScreen());
     case HomeScreen.routeName:
       return buildRoute(screen: const HomeScreen());
-    case BottomBar.routeName:
-      return buildRoute(screen: const BottomBar());
+    case UserBottomBar.routeName:
+      return buildRoute(screen: const UserBottomBar());
+    case AddProductScreen.routeName:
+      return buildRoute(screen: const AddProductScreen());
     default:
       return buildRoute(screen: const NoPageFound());
   }

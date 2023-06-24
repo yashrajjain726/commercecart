@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:commercecart/common/widgets/bottombar.dart';
+import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
@@ -77,7 +77,7 @@ class AuthService {
             await preferences.setString(
                 Globals.AUTHTOKEN, jsonDecode(response.body)['token']);
             Navigator.pushNamedAndRemoveUntil(
-                context, BottomBar.routeName, (route) => false);
+                context, UserBottomBar.routeName, (route) => false);
           });
     } catch (e) {
       showSnackbar(context, e.toString());

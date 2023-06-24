@@ -1,34 +1,56 @@
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/account/screens/account_screen.dart';
+import 'package:commercecart/features/admin/screens/admin_screen.dart';
+import 'package:commercecart/features/admin/screens/products_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
-class BottomBar extends StatefulWidget {
-  static const routeName = '/main-home-page';
-  const BottomBar({super.key});
+class AdminBottomBar extends StatefulWidget {
+  static const routeName = '/admin-home-page';
+  const AdminBottomBar({super.key});
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<AdminBottomBar> createState() => _AdminBottomBarState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _AdminBottomBarState extends State<AdminBottomBar> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
-    const HomeScreen(),
-    const AccountScreen(),
+    const ProductsScreen(),
+    const Center(child: Text('Analytics Page')),
     const Center(child: Text('Cart Page'))
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(gradient: Globals.appBarGradient),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  alignment: Alignment.topLeft,
+                  child: const Text('CommerceCart')),
+              const Text(
+                'Admin',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+      ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _updatePage,
         items: [
-          // HOME
+          // POSTS
           BottomNavigationBarItem(
               icon: Container(
                 width: bottomBarWidth,
@@ -43,7 +65,7 @@ class _BottomBarState extends State<BottomBar> {
               ),
               label: ""),
 
-          // ACCOUNT
+          // ANALYTICS
           BottomNavigationBarItem(
               icon: Container(
                 width: bottomBarWidth,
@@ -54,11 +76,11 @@ class _BottomBarState extends State<BottomBar> {
                             color: _page == 1
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
-                child: const Icon(Icons.person_outline_outlined),
+                child: const Icon(Icons.analytics_outlined),
               ),
               label: ""),
 
-          //CART
+          //ORDERS
           BottomNavigationBarItem(
               icon: Container(
                 width: bottomBarWidth,
@@ -69,13 +91,9 @@ class _BottomBarState extends State<BottomBar> {
                             color: _page == 2
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
-                child: const badges.Badge(
-                  badgeContent: Text('3'),
-                  badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                  child: Icon(Icons.shopping_cart_outlined),
-                ),
+                child: const Icon(Icons.all_inbox_outlined),
               ),
-              label: "")
+              label: ""),
         ],
         currentIndex: _page,
         selectedItemColor: Globals.selectedNavBarColor,
