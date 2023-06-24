@@ -1,8 +1,9 @@
+import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/routes.dart';
+import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,10 +39,12 @@ class _MyAppState extends State<MyApp> {
           colorScheme: const ColorScheme.light(primary: Globals.secondaryColor),
           scaffoldBackgroundColor: Globals.backgroundColor,
           appBarTheme: const AppBarTheme(
-              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
+              elevation: 0, iconTheme: IconThemeData(color: Colors.white))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const HomeScreen()
+          ? (Provider.of<UserProvider>(context).user.type == "user")
+              ? UserBottomBar()
+              : AdminBottomBar()
           : const AuthScreen(),
     );
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
+  final int maxLines;
   final Function(String? value) validator;
   final TextEditingController controller;
   final String hintText;
   final bool? obscure;
   const CustomTextFormField({
     Key? key,
+    this.maxLines = 1,
     required this.validator,
     required this.controller,
     required this.hintText,
@@ -17,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         border: const OutlineInputBorder(
