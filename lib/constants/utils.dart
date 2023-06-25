@@ -11,6 +11,21 @@ String uppercaseFirstLetter(String value) {
   return value[0].toUpperCase() + value.substring(1);
 }
 
+String? checkNullAndEmpty(String? value, String text) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter the $text';
+  }
+  return null;
+}
+
+String? validateEmail(String? value, String text) {
+  checkNullAndEmpty(value, text);
+  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value!)) {
+    return "Please enter a valid email address";
+  }
+  return null;
+}
+
 Future<List<File>> pickImages() async {
   List<File> images = [];
   try {

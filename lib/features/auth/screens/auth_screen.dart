@@ -1,6 +1,7 @@
 import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/custom_textformfield.dart';
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -66,35 +67,20 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the email';
-                                }
-                                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                                  return "Please enter a valid email address";
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  validateEmail(value, 'email'),
                               controller: _emailController,
                               hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the name';
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  checkNullAndEmpty(value, 'name'),
                               controller: _nameController,
                               hintText: 'Name'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the password';
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  checkNullAndEmpty(value, 'password'),
                               obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),
@@ -144,25 +130,14 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the email';
-                                }
-                                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                                  return "Please enter a valid email address";
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  validateEmail(value, 'email'),
                               controller: _emailController,
                               hintText: 'Email'),
                           const SizedBox(height: 10),
                           CustomTextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the password';
-                                }
-                                return null;
-                              },
+                              validator: (value) =>
+                                  checkNullAndEmpty(value, 'password'),
                               obscure: true,
                               controller: _passwordController,
                               hintText: 'Password'),

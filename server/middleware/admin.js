@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const admin = async (request, response, next) => {
   try {
-    const token = request.headers("x-auth-token");
+    const token = request.header("x-auth-token");
     if (!token)
       return response
         .status(401)
@@ -22,3 +22,4 @@ const admin = async (request, response, next) => {
     response.status(500).json({ error: error.message });
   }
 };
+module.exports = admin;

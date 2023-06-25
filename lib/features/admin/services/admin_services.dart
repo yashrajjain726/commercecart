@@ -1,9 +1,14 @@
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/models/product.dart';
+import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class AdminServices {
   void sellProduct({
@@ -15,6 +20,7 @@ class AdminServices {
     required int quantity,
     required String category,
   }) async {
+    final userProvider = context.read<UserProvider>();
     try {
       List<String> imageUrls =
           await uploadImagesToCloudinary(context, images, name);
@@ -25,6 +31,21 @@ class AdminServices {
           quantity: quantity,
           images: imageUrls,
           category: category);
+
+      http.Response response = await http.post(
+          Uri.parse('${Globals.URI}/admin/add/product'),
+          body: product.toJson(),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token
+          });
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            showSnackbar(context, 'Yay,Product Added Successfully ..!');
+            Navigator.pop(context);
+          });
     } catch (e) {
       showSnackbar(context, e.toString());
     }
@@ -34,7 +55,7 @@ class AdminServices {
       BuildContext context, List<File> images, String productName) async {
     List<String> imageUrls = [];
     try {
-      final cloudinary = CloudinaryPublic('dmk6cy00x', 'fti1dyhp');
+      final cloudinary = CloudinaryPublic('dmk6cy00x', 'nhjccefi');
       for (int i = 0; i < images.length; i++) {
         final response = await cloudinary.uploadFile(
             CloudinaryFile.fromFile(images[i].path, folder: productName));

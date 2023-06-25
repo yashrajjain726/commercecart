@@ -1,9 +1,9 @@
 const express = require("express");
-const appRouter = express.Router();
+const adminRouter = express.Router();
 const admin = require("../middleware/admin");
 const Product = require("../models/product");
 
-appRouter.get("/admin/add/products", admin, async (request, response) => {
+adminRouter.post("/admin/add/product", admin, async (request, response) => {
   try {
     const { name, description, price, quantity, category, images } =
       request.body;
@@ -21,3 +21,4 @@ appRouter.get("/admin/add/products", admin, async (request, response) => {
     response.status(500).json({ error: "Something went wrong" });
   }
 });
+module.exports = adminRouter;
