@@ -92,4 +92,27 @@ class AdminServices {
     }
     return products;
   }
+
+  Future<void> deleteProduct(
+      BuildContext context, String id, VoidCallback onSuccess) async {
+    final userProvider = context.read<UserProvider>();
+    try {
+      http.Response response =
+          await http.post(Uri.parse('${Globals.URI}/admin/delete/product'),
+              headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': userProvider.user.token
+              },
+              body: jsonEncode({'id': id}));
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            onSuccess();
+            showSnackbar(context, 'Product has been deleted successfully...');
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
 }

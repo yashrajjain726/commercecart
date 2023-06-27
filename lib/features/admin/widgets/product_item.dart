@@ -1,9 +1,10 @@
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/account/widgets/order_item.dart';
+import 'package:commercecart/features/admin/services/admin_services.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:flutter/material.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({
     super.key,
     required this.products,
@@ -12,13 +13,19 @@ class ProductItem extends StatelessWidget {
   final List<Product>? products;
 
   @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  final AdminServices adminServices = AdminServices();
+  @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: products!.length,
+      itemCount: widget.products!.length,
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
-        final product = products![index];
+        final product = widget.products![index];
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +46,14 @@ class ProductItem extends StatelessWidget {
                       maxLines: 2,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                   IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.delete_outline))
+                      onPressed: () async {
+                        await adminServices.deleteProduct(context, product.id!,
+                            () {
+                          widget.products!.removeAt(index);
+                          setState(() {});
+                        });
+                      },
+                      icon: const Icon(Icons.delete_outline))
                 ],
               ),
             )
