@@ -43,9 +43,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
     _qntyController.dispose();
   }
 
-  sellProduct() {
+  addProduct() {
     if (_formKey.currentState!.validate() && images.isNotEmpty) {
-      adminServices.sellProduct(
+      adminServices.addProduct(
           context: context,
           images: images,
           name: _nameController.text,
@@ -187,7 +187,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           child: CustomButton(
               text: 'Add Product ',
               onPressed:
-                  (images.isEmpty) ? showRequiredImagesBar : sellProduct)),
+                  (images.isEmpty) ? showRequiredImagesBar : addProduct)),
     );
   }
 
