@@ -86,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               hintText: 'Password'),
                           const SizedBox(height: 10),
                           CustomButton(
-                              text: 'Create Account',
+                              text: Text('Create Account'),
                               onPressed: () {
                                 if (_signUpKey.currentState!.validate()) {
                                   authService.signUpUser(
@@ -143,7 +143,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               hintText: 'Password'),
                           const SizedBox(height: 10),
                           CustomButton(
-                              text: 'Sign In',
+                              text: Text('Sign In'),
                               onPressed: () {
                                 if (_signInKey.currentState!.validate()) {
                                   authService.sigInUser(

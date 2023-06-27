@@ -24,7 +24,7 @@ adminRouter.post("/admin/add/product", admin, async (request, response) => {
 adminRouter.get("/admin/get/products", admin, async (request, response) => {
   try {
     const products = await Product.find();
-    response.json();
+    response.json(products);
   } catch (error) {
     response.status(500).json({ error: error.message });
   }

@@ -50,7 +50,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           images: images,
           name: _nameController.text,
           description: _descController.text,
-          price: double.parse(_priceController.text),
+          price: int.parse(_priceController.text),
           quantity: int.parse(_qntyController.text),
           category: category);
     }
@@ -185,7 +185,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           margin:
               const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 50),
           child: CustomButton(
-              text: 'Add Product ',
+              text: Text('Add Product '),
               onPressed:
                   (images.isEmpty) ? showRequiredImagesBar : addProduct)),
     );

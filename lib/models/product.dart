@@ -4,7 +4,7 @@ import 'dart:convert';
 class Product {
   final String name;
   final String description;
-  final double price;
+  final int price;
   final int quantity;
   final List<String> images;
   final String category;
@@ -35,7 +35,7 @@ class Product {
     return Product(
       name: map['name'] as String,
       description: map['description'] as String,
-      price: map['price'] as double,
+      price: map['price'] as int,
       quantity: map['quantity'] as int,
       images: List<String>.from(map['images']),
       category: map['category'] as String,

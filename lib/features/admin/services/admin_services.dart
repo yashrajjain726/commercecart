@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -16,7 +17,7 @@ class AdminServices {
     required List<File> images,
     required String name,
     required String description,
-    required double price,
+    required int price,
     required int quantity,
     required String category,
   }) async {
@@ -65,5 +66,30 @@ class AdminServices {
       showSnackbar(context, e.toString());
     }
     return imageUrls;
+  }
+
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+    final userProvider = context.read<UserProvider>();
+    List<Product> products = [];
+    try {
+      http.Response response = await http
+          .get(Uri.parse('${Globals.URI}/admin/get/products'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token
+      });
+      print(response);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            final json = jsonDecode(response.body);
+            for (int i = 0; i < json.length; i++) {
+              products.add(Product.fromJson(jsonEncode(json[i])));
+            }
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+    return products;
   }
 }

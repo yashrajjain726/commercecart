@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
+  final Widget text;
   final VoidCallback onPressed;
   const CustomButton({
     super.key,
@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 50)),
-      child: Text(text),
+      child: text,
     );
   }
 }
