@@ -6,13 +6,14 @@ import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/models/product.dart';
+import 'package:commercecart/providers/product_provider.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class AdminServices {
-  void addProduct({
+  Future<void> addProduct({
     required BuildContext context,
     required List<File> images,
     required String name,
@@ -43,7 +44,8 @@ class AdminServices {
       httpErrorHandler(
           response: response,
           context: context,
-          onSuccess: () {
+          onSuccess: () async {
+            context.read<ProductProvider>().addProduct(product);
             showSnackbar(context, 'Yay,Product Added Successfully ..!');
             Navigator.pop(context);
           });

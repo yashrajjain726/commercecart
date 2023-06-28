@@ -4,6 +4,7 @@ import 'package:commercecart/constants/routes.dart';
 import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
+import 'package:commercecart/providers/product_provider.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserProvider()),
+    ChangeNotifierProvider(create: (_) => ProductProvider())
   ], child: const MyApp()));
 }
 
