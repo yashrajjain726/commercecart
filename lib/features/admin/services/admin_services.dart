@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/product_provider.dart';
@@ -11,6 +12,7 @@ import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminServices {
   Future<void> addProduct({
@@ -113,6 +115,17 @@ class AdminServices {
             onSuccess();
             showSnackbar(context, 'Product has been deleted successfully...');
           });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await preferences.setString(Globals.AUTHTOKEN, "");
+      Navigator.pushNamedAndRemoveUntil(
+          context, AuthScreen.routeName, (route) => false);
     } catch (e) {
       showSnackbar(context, e.toString());
     }

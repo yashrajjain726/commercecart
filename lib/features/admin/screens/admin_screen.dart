@@ -1,10 +1,7 @@
 import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/features/account/screens/account_screen.dart';
-import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/admin/screens/products_screen.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
+import 'package:commercecart/features/admin/services/admin_services.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 
 class AdminBottomBar extends StatefulWidget {
   static const routeName = '/admin-home-page';
@@ -15,6 +12,7 @@ class AdminBottomBar extends StatefulWidget {
 }
 
 class _AdminBottomBarState extends State<AdminBottomBar> {
+  final AdminServices adminServices = AdminServices();
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
@@ -35,13 +33,21 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: const Text('CommerceCart')),
-              const Text(
-                'Admin',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      alignment: Alignment.topLeft,
+                      child: const Text('CommerceCart')),
+                  const Text(
+                    'Admin',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              IconButton(
+                  onPressed: () => adminServices.logout(context),
+                  icon: const Icon(Icons.logout_outlined))
             ],
           ),
         ),

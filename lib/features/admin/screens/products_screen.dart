@@ -38,7 +38,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             child: Scaffold(
               body: products.isEmpty
                   ? const Center(
-                      child: Text('Products'),
+                      child: Text('No, Products added yet.'),
                     )
                   : const ProductItem(),
               floatingActionButtonLocation:
