@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AdminServices {
+class AdminService {
   Future<void> addProduct({
     required BuildContext context,
     required List<File> images,
@@ -115,17 +115,6 @@ class AdminServices {
             onSuccess();
             showSnackbar(context, 'Product has been deleted successfully...');
           });
-    } catch (e) {
-      showSnackbar(context, e.toString());
-    }
-  }
-
-  Future<void> logout(BuildContext context) async {
-    try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      await preferences.setString(Globals.AUTHTOKEN, "");
-      Navigator.pushNamedAndRemoveUntil(
-          context, AuthScreen.routeName, (route) => false);
     } catch (e) {
       showSnackbar(context, e.toString());
     }

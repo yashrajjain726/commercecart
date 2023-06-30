@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -109,6 +110,17 @@ class AuthService {
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userResponse.body);
       }
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await preferences.setString(Globals.AUTHTOKEN, "");
+      Navigator.pushNamedAndRemoveUntil(
+          context, AuthScreen.routeName, (route) => false);
     } catch (e) {
       showSnackbar(context, e.toString());
     }

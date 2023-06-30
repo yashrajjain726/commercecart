@@ -1,6 +1,6 @@
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/admin/screens/add_product_screen.dart';
-import 'package:commercecart/features/admin/services/admin_services.dart';
+import 'package:commercecart/features/admin/services/admin_service.dart';
 import 'package:commercecart/features/admin/widgets/product_item.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/product_provider.dart';
@@ -15,7 +15,7 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  final AdminServices adminServices = AdminServices();
+  final AdminService adminServices = AdminService();
   @override
   void initState() {
     super.initState();

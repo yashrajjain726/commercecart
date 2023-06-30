@@ -1,6 +1,7 @@
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/admin/screens/products_screen.dart';
-import 'package:commercecart/features/admin/services/admin_services.dart';
+import 'package:commercecart/features/admin/services/admin_service.dart';
+import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class AdminBottomBar extends StatefulWidget {
@@ -12,7 +13,7 @@ class AdminBottomBar extends StatefulWidget {
 }
 
 class _AdminBottomBarState extends State<AdminBottomBar> {
-  final AdminServices adminServices = AdminServices();
+  final AuthService authService = AuthService();
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
@@ -46,7 +47,7 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
                 ],
               ),
               IconButton(
-                  onPressed: () => adminServices.logout(context),
+                  onPressed: () => authService.logout(context),
                   icon: const Icon(Icons.logout_outlined))
             ],
           ),

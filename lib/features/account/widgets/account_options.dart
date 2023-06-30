@@ -1,9 +1,16 @@
 import 'package:commercecart/features/account/widgets/account_option_button.dart';
+import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-class AccountOptions extends StatelessWidget {
+class AccountOptions extends StatefulWidget {
   const AccountOptions({super.key});
 
+  @override
+  State<AccountOptions> createState() => _AccountOptionsState();
+}
+
+class _AccountOptionsState extends State<AccountOptions> {
+  final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +24,9 @@ class AccountOptions extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: [
-            AccountOptionButton(onPressed: () {}, optionText: 'Log Out'),
+            AccountOptionButton(
+                onPressed: () => authService.logout(context),
+                optionText: 'Log Out'),
             AccountOptionButton(onPressed: () {}, optionText: 'Wishlist'),
           ],
         )

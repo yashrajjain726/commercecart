@@ -1,6 +1,6 @@
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/account/widgets/order_item.dart';
-import 'package:commercecart/features/admin/services/admin_services.dart';
+import 'package:commercecart/features/admin/services/admin_service.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  final AdminServices adminServices = AdminServices();
+  final AdminService adminServices = AdminService();
   @override
   Widget build(BuildContext context) {
     final products = context.watch<ProductProvider>().products;

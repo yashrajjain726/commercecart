@@ -5,7 +5,7 @@ import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/custom_textformfield.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/admin/services/admin_services.dart';
+import 'package:commercecart/features/admin/services/admin_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +20,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final AdminServices adminServices = AdminServices();
+  final AdminService adminServices = AdminService();
   List<File> images = [];
   final _nameController = TextEditingController();
   final _descController = TextEditingController();
