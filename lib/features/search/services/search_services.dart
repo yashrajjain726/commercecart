@@ -6,17 +6,17 @@ import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
-class HomeService {
-  Future<List<Product>> fetchCategoryBasedProducts(
-      BuildContext context, String category) async {
+class SearchServices {
+  Future<List<Product>> fetchSearchBasedProducts(
+      BuildContext context, String query) async {
     final userProvider = context.read<UserProvider>();
     List<Product> products = [];
     try {
       http.Response response = await http.get(
-          Uri.parse('${Globals.URI}/api/products?category=$category'),
+          Uri.parse('${Globals.URI}/api/products/search/$query'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'x-auth-token': userProvider.user.token

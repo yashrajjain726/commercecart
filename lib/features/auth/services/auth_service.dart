@@ -77,6 +77,7 @@ class AuthService {
                 .setUser(response.body);
             await preferences.setString(
                 Globals.AUTHTOKEN, jsonDecode(response.body)['token']);
+            print(preferences.getString(Globals.AUTHTOKEN));
             Navigator.pushNamedAndRemoveUntil(
                 context, UserBottomBar.routeName, (route) => false);
           });
@@ -119,6 +120,7 @@ class AuthService {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.setString(Globals.AUTHTOKEN, "");
+      print(preferences.getString(Globals.AUTHTOKEN));
       Navigator.pushNamedAndRemoveUntil(
           context, AuthScreen.routeName, (route) => false);
     } catch (e) {

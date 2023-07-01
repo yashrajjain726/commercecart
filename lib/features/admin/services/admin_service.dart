@@ -76,8 +76,8 @@ class AdminService {
     final userProvider = context.read<UserProvider>();
     List<Product> products = [];
     try {
-      http.Response response = await http
-          .get(Uri.parse('${Globals.URI}/admin/get/products'), headers: {
+      http.Response response =
+          await http.get(Uri.parse('${Globals.URI}/admin/products'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token
       });
