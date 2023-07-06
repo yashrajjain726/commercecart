@@ -2,7 +2,9 @@ import 'package:commercecart/common/widgets/stars.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/product/screens/product_detail_screen.dart';
 import 'package:commercecart/models/product.dart';
+import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchProductResultCard extends StatelessWidget {
   final Product product;
@@ -10,6 +12,16 @@ class SearchProductResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double avgRating = 0;
+    final userProvider = context.read<UserProvider>();
+    double totatRating = 0;
+    for (int i = 0; i < product.rating!.length; i++) {
+      totatRating += product.rating![i].rating;
+    }
+    if (totatRating != 0) {
+      avgRating = totatRating / (product.rating!.length);
+    }
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, ProductDetailScreen.routeName,
           arguments: product),
@@ -22,7 +34,7 @@ class SearchProductResultCard extends StatelessWidget {
               children: [
                 Image.network(
                   product.images[0],
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.contain,
                   height: 135,
                   width: 135,
                 ),
@@ -42,7 +54,7 @@ class SearchProductResultCard extends StatelessWidget {
                     Container(
                         width: 235,
                         padding: const EdgeInsets.only(left: 10, top: 5),
-                        child: const Stars(rating: 4)),
+                        child: Stars(rating: avgRating)),
                     Container(
                       width: 235,
                       padding: const EdgeInsets.only(left: 10, top: 5),
