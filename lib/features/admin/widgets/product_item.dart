@@ -18,31 +18,37 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     final products = context.watch<ProductProvider>().products;
+
     return GridView.builder(
       itemCount: products.length,
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
         final product = products[index];
+
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 140,
-              child: OrderItem(
-                img: product.images[0],
-              ),
+              height: 120,
+              child: product.images.isEmpty
+                  ? null
+                  : OrderItem(
+                      img: product.images[0],
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(uppercaseFirstLetter(product.name),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Flexible(
+                    child: Text(uppercaseFirstLetter(product.name),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                   IconButton(
                       onPressed: () async {
                         await adminServices.deleteProduct(context, product.id!,

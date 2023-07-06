@@ -4,7 +4,9 @@ import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/home/screens/category_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/features/no_page_found.dart';
+import 'package:commercecart/features/product/screens/product_detail_screen.dart';
 import 'package:commercecart/features/search/screens/search_screen.dart';
+import 'package:commercecart/models/product.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -23,6 +25,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case SearchScreen.routeName:
       var query = settings.arguments as String;
       return buildRoute(screen: SearchScreen(query: query));
+    case ProductDetailScreen.routeName:
+      var product = settings.arguments as Product;
+      return buildRoute(screen: ProductDetailScreen(product: product));
     default:
       return buildRoute(screen: const NoPageFound());
   }

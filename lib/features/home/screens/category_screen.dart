@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:commercecart/features/home/services/home_service.dart';
+import 'package:commercecart/features/product/screens/product_detail_screen.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 170,
+                      height: 200,
                       child: GridView.builder(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.only(left: 15),
@@ -76,34 +77,41 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 mainAxisSpacing: 10),
                         itemBuilder: (context, index) {
                           final product = products![index];
-                          return Column(
-                            children: [
-                              SizedBox(
-                                height: 130,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black12,
-                                      width: 0.5,
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, ProductDetailScreen.routeName,
+                                arguments: product),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 150,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black12,
+                                        width: 0.5,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Image.network(product.images[0]),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Image.network(product.images[0]),
+                                ),
+                                const SizedBox(height: 5),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  padding: const EdgeInsets.only(
+                                      left: 0, top: 5, right: 15),
+                                  child: Text(
+                                    product.name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                padding: const EdgeInsets.only(
-                                    left: 0, top: 5, right: 15),
-                                child: Text(
-                                  product.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           );
                         },
                       ),

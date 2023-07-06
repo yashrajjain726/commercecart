@@ -7,16 +7,16 @@ import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/providers/user_provider.dart';
+import 'package:commercecart/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/user.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  AppSharedPreference preference = AppSharedPreference();
   Future<void> signUpUser(
       {required BuildContext context,
       required String email,
@@ -71,13 +71,11 @@ class AuthService {
           response: response,
           context: context,
           onSuccess: () async {
-            SharedPreferences preferences =
-                await SharedPreferences.getInstance();
             Provider.of<UserProvider>(context, listen: false)
                 .setUser(response.body);
-            await preferences.setString(
+            preference.setUserToken(
                 Globals.AUTHTOKEN, jsonDecode(response.body)['token']);
-            print(preferences.getString(Globals.AUTHTOKEN));
+
             Navigator.pushNamedAndRemoveUntil(
                 context, UserBottomBar.routeName, (route) => false);
           });
@@ -88,10 +86,9 @@ class AuthService {
 
   Future<void> getUserData(BuildContext context) async {
     try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      String? token = preferences.getString(Globals.AUTHTOKEN);
+      String? token = await preference.getUserToken(Globals.AUTHTOKEN);
       if (token == null) {
-        await preferences.setString(Globals.AUTHTOKEN, '');
+        await preference.setUserToken(Globals.AUTHTOKEN, '');
       }
       final tokenResponse = await http.post(
         Uri.parse('${Globals.URI}/api/validate/token'),
@@ -118,9 +115,7 @@ class AuthService {
 
   Future<void> logout(BuildContext context) async {
     try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      await preferences.setString(Globals.AUTHTOKEN, "");
-      print(preferences.getString(Globals.AUTHTOKEN));
+      await preference.setUserToken(Globals.AUTHTOKEN, "");
       Navigator.pushNamedAndRemoveUntil(
           context, AuthScreen.routeName, (route) => false);
     } catch (e) {
