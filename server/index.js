@@ -3,11 +3,12 @@
 // IMPORTS FROM PACKAGES
 const express = require("express");
 const mongoose = require("mongoose");
-const adminRouter = require("./routes/admin");
 
 // IMPORTS FROM FILES
 const authRouter = require("./routes/auth");
 const productRouter = require("./routes/product");
+const adminRouter = require("./routes/admin");
+const userRouter = require("./routes/user");
 
 // INITIALIZE
 const PORT = 3000;
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);
+app.use(userRouter);
 
 // CONNECTION
 mongoose
