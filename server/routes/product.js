@@ -1,7 +1,7 @@
 const express = require("express");
 const productRouter = express.Router();
 const auth = require("../middleware/auth");
-const Product = require("../models/product");
+const { Product } = require("../models/product");
 
 productRouter.get("/api/products", auth, async (request, response) => {
   try {

@@ -24,7 +24,6 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final AppSharedPreference preference = AppSharedPreference();
-  int _counter = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   final ProductDetailService productDetailService = ProductDetailService();
@@ -35,6 +34,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     super.initState();
     final userProvider = context.read<UserProvider>();
+
     double totatRating = 0;
     for (int i = 0; i < widget.product.rating!.length; i++) {
       if (widget.product.rating![i].userId == userProvider.user.id) {
@@ -47,22 +47,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     }
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    if (_counter > 0) {
-      setState(() {
-        _counter--;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    int cartLength = context.watch<UserProvider>().user.cartList.length;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -123,8 +110,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       size: 25,
                     ),
                   ),
-                  const badges.Badge(
-                    badgeContent: Text('3'),
+                  badges.Badge(
+                    badgeContent: Text(cartLength.toString()),
                     badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
                     child: Icon(Icons.shopping_cart_outlined),
                   ),
@@ -181,71 +168,50 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 const SizedBox(height: 10),
                 Text(widget.product.description),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Card(
-                      elevation: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.add,
-                              size: 18,
-                            ),
-                            onPressed: _incrementCounter,
-                          ),
-                          Text(
-                            '$_counter',
-                            style: const TextStyle(fontSize: 18.0),
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.remove,
-                              size: 18,
-                            ),
-                            onPressed: _decrementCounter,
-                          ),
-                        ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Rate the product',
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomButton(
-                          onPressed: () {}, text: const Text('Add to Cart')),
-                    )),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    'Rate the Product',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      RatingBar.builder(
+                        initialRating: myRating,
+                        minRating: 1,
+                        itemSize: 20,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 0),
+                        itemBuilder: (context, index) {
+                          return const Icon(
+                            Icons.star,
+                            color: Globals.secondaryColor,
+                          );
+                        },
+                        onRatingUpdate: (value) {
+                          productDetailService.rateProduct(
+                              context: context,
+                              product: widget.product,
+                              rating: value);
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                RatingBar.builder(
-                  initialRating: myRating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                  itemBuilder: (context, index) {
-                    return const Icon(
-                      Icons.star,
-                      color: Globals.secondaryColor,
-                    );
-                  },
-                  onRatingUpdate: (value) {
-                    productDetailService.rateProduct(
-                        context: context,
-                        product: widget.product,
-                        rating: value);
-                  },
-                )
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomButton(
+                      onPressed: () {
+                        productDetailService.addProductToCart(
+                            context: context, productId: widget.product.id!);
+                      },
+                      text: const Text('Add to Cart')),
+                ),
               ],
             ),
           ),

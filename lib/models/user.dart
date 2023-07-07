@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class User {
@@ -8,6 +9,7 @@ class User {
   final String token;
   final String type;
   final String address;
+  final List<dynamic> cartList;
   User({
     required this.id,
     required this.email,
@@ -16,6 +18,7 @@ class User {
     required this.token,
     required this.type,
     required this.address,
+    required this.cartList,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +31,7 @@ class User {
     result.addAll({'token': token});
     result.addAll({'type': type});
     result.addAll({'address': address});
+    result.addAll({'cart': cartList});
 
     return result;
   }
@@ -41,10 +45,34 @@ class User {
       token: map['token'] ?? '',
       type: map['type'] ?? '',
       address: map['address'] ?? '',
+      cartList: List<Map<String, dynamic>>.from(
+          map['cart']?.map((x) => Map<String, dynamic>.from(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory User.fromJson(String source) => User.fromMap(json.decode(source));
+
+  User copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? password,
+    String? token,
+    String? type,
+    String? address,
+    List<dynamic>? cartList,
+  }) {
+    return User(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      password: password ?? this.password,
+      token: token ?? this.token,
+      type: type ?? this.type,
+      address: address ?? this.address,
+      cartList: cartList ?? this.cartList,
+    );
+  }
 }

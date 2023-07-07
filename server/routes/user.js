@@ -7,7 +7,7 @@ userRouter.post("/api/user/add-to-cart", auth, async (request, response) => {
   try {
     const { id } = request.body;
     const product = await Product.findById(id);
-    const user = await User.findById(request.user);
+    let user = await User.findById(request.user);
     if (user.cart.length == 0) {
       user.cart.push({ product, quantity: 1 });
     } else {

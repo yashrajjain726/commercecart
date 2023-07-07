@@ -1,8 +1,10 @@
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/account/screens/account_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
+import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
 
 class UserBottomBar extends StatefulWidget {
   static const routeName = '/main-home-page';
@@ -23,6 +25,7 @@ class _UserBottomBarState extends State<UserBottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
+    int cartLength = context.watch<UserProvider>().user.cartList.length;
     return Scaffold(
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -69,8 +72,8 @@ class _UserBottomBarState extends State<UserBottomBar> {
                             color: _page == 2
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
-                child: const badges.Badge(
-                  badgeContent: Text('3'),
+                child: badges.Badge(
+                  badgeContent: Text(cartLength.toString()),
                   badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
                   child: Icon(Icons.shopping_cart_outlined),
                 ),

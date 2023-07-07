@@ -30,7 +30,8 @@ class AuthService {
           password: password,
           token: '',
           type: '',
-          address: '');
+          address: '',
+          cartList: []);
       http.Response response = await http.post(
         Uri.parse('${Globals.URI}/api/signup'),
         body: user.toJson(),
