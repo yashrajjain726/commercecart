@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/custom_textformfield.dart';
+import 'package:commercecart/common/widgets/dotted_carousel.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/admin/services/admin_service.dart';
@@ -113,20 +114,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               ),
                             ),
                           )
-                        : CarouselSlider(
-                            items: images
-                                .map((i) => Builder(
-                                      builder: (context) {
-                                        return Image.file(
-                                          i,
-                                          fit: BoxFit.cover,
-                                          height: 200,
-                                        );
-                                      },
-                                    ))
-                                .toList(),
-                            options: CarouselOptions(
-                                viewportFraction: 1, height: 200),
+                        : DottedCarousel(
+                            imagesPath: images,
                           ),
                     const SizedBox(
                       height: 30,

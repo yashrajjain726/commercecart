@@ -1,6 +1,6 @@
+import 'package:commercecart/common/widgets/dotted_carousel.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/home/widgets/address_box.dart';
-import 'package:commercecart/features/home/widgets/carousel_widget.dart';
 import 'package:commercecart/features/home/widgets/deal_of_day_widget.dart';
 import 'package:commercecart/features/home/widgets/top_catergories.dart';
 import 'package:commercecart/features/search/screens/search_screen.dart';
@@ -81,7 +81,10 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 10),
             TopCategories(),
             SizedBox(height: 10),
-            CarouselWidget(),
+            DottedCarousel(
+              images: Globals.carouselImages,
+              isDotRequired: false,
+            ),
             DealOfDayWidget()
           ],
         ),

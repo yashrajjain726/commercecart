@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:commercecart/common/widgets/custom_button.dart';
+import 'package:commercecart/common/widgets/dotted_carousel.dart';
 import 'package:commercecart/common/widgets/stars.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/product/services/product_detail_service.dart';
@@ -22,9 +23,6 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  int _current = 0;
-  final CarouselController _controller = CarouselController();
-
   final AppSharedPreference preference = AppSharedPreference();
   int _counter = 0;
   double bottomBarWidth = 42;
@@ -147,49 +145,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                CarouselSlider(
-                    items: widget.product.images
-                        .map((i) => Builder(
-                              builder: (context) {
-                                return Image.network(
-                                  i,
-                                  fit: BoxFit.contain,
-                                  height: 200,
-                                );
-                              },
-                            ))
-                        .toList(),
-                    options: CarouselOptions(
-                        viewportFraction: 1,
-                        height: 300,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        })),
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: widget.product.images.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: 8.0,
-                        height: 8.0,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                (Theme.of(context).brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black)
-                                    .withOpacity(
-                                        _current == entry.key ? 0.9 : 0.4)),
-                      ),
-                    );
-                  }).toList(),
-                ),
+                DottedCarousel(images: widget.product.images),
                 const SizedBox(height: 20),
                 Text(
                   widget.product.name,
