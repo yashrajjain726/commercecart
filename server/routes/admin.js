@@ -19,7 +19,7 @@ adminRouter.post("/admin/add/product", admin, async (request, response) => {
     product = await product.save();
     response.json(product);
   } catch (error) {
-    response.status(500).json({ error: "Something went wrong" });
+    response.status(500).json({ error: error.message });
   }
 });
 adminRouter.get("/admin/products", admin, async (request, response) => {

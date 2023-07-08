@@ -31,7 +31,6 @@ class ProductDetailService {
             User user = userProvider.user
                 .copyWith(cartList: jsonDecode(response.body)['cart']);
             userProvider.setUserfromModel(user);
-            showSnackbar(context, 'Product added to cart successfully..');
           });
     } catch (e) {
       showSnackbar(context, e.toString());

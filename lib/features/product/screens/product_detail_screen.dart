@@ -3,6 +3,8 @@ import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/dotted_carousel.dart';
 import 'package:commercecart/common/widgets/stars.dart';
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/cart/screens/cart_screen.dart';
 import 'package:commercecart/features/product/services/product_detail_service.dart';
 import 'package:commercecart/features/search/screens/search_screen.dart';
 import 'package:commercecart/models/product.dart';
@@ -110,10 +112,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       size: 25,
                     ),
                   ),
-                  badges.Badge(
-                    badgeContent: Text(cartLength.toString()),
-                    badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                    child: Icon(Icons.shopping_cart_outlined),
+                  GestureDetector(
+                    onTap: () => Navigator.pushReplacementNamed(
+                        context, CartScreen.routeName),
+                    child: badges.Badge(
+                      badgeContent: Text(cartLength.toString()),
+                      badgeStyle:
+                          const badges.BadgeStyle(badgeColor: Colors.white),
+                      child: const Icon(Icons.shopping_cart_outlined),
+                    ),
                   ),
                 ],
               )),
@@ -209,6 +216,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       onPressed: () {
                         productDetailService.addProductToCart(
                             context: context, productId: widget.product.id!);
+                        showSnackbar(
+                            context, 'Product added to cart successfully..');
                       },
                       text: const Text('Add to Cart')),
                 ),

@@ -4,8 +4,6 @@ import 'package:commercecart/features/search/services/search_services.dart';
 import 'package:commercecart/features/search/widgets/search_product_result_card.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String routeName = '/search';

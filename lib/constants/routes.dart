@@ -1,6 +1,7 @@
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/features/admin/screens/add_product_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
+import 'package:commercecart/features/cart/screens/cart_screen.dart';
 import 'package:commercecart/features/home/screens/category_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/features/no_page_found.dart';
@@ -28,6 +29,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case ProductDetailScreen.routeName:
       var product = settings.arguments as Product;
       return buildRoute(screen: ProductDetailScreen(product: product));
+    case CartScreen.routeName:
+      return buildRoute(screen: const CartScreen());
     default:
       return buildRoute(screen: const NoPageFound());
   }
