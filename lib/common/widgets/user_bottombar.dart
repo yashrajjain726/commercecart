@@ -16,7 +16,6 @@ class UserBottomBar extends StatefulWidget {
 }
 
 class _UserBottomBarState extends State<UserBottomBar> {
-  int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
@@ -26,9 +25,10 @@ class _UserBottomBarState extends State<UserBottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
+    int bottomBarIndex = context.watch<UserProvider>().userbottomBarIndex;
     int cartLength = context.watch<UserProvider>().user.cartList.length;
     return Scaffold(
-      body: pages[_page],
+      body: pages[bottomBarIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _updatePage,
         items: [
@@ -40,7 +40,7 @@ class _UserBottomBarState extends State<UserBottomBar> {
                     border: Border(
                         top: BorderSide(
                             width: bottomBarBorderWidth,
-                            color: _page == 0
+                            color: bottomBarIndex == 0
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
                 child: const Icon(Icons.home_outlined),
@@ -55,7 +55,7 @@ class _UserBottomBarState extends State<UserBottomBar> {
                     border: Border(
                         top: BorderSide(
                             width: bottomBarBorderWidth,
-                            color: _page == 1
+                            color: bottomBarIndex == 1
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
                 child: const Icon(Icons.person_outline_outlined),
@@ -70,18 +70,18 @@ class _UserBottomBarState extends State<UserBottomBar> {
                     border: Border(
                         top: BorderSide(
                             width: bottomBarBorderWidth,
-                            color: _page == 2
+                            color: bottomBarIndex == 2
                                 ? Globals.selectedNavBarColor
                                 : Globals.backgroundColor))),
                 child: badges.Badge(
                   badgeContent: Text(cartLength.toString()),
-                  badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                  child: Icon(Icons.shopping_cart_outlined),
+                  badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
+                  child: const Icon(Icons.shopping_cart_outlined),
                 ),
               ),
               label: "")
         ],
-        currentIndex: _page,
+        currentIndex: bottomBarIndex,
         selectedItemColor: Globals.selectedNavBarColor,
         unselectedItemColor: Globals.unselectedNavBarColor,
         backgroundColor: Globals.backgroundColor,
@@ -91,8 +91,6 @@ class _UserBottomBarState extends State<UserBottomBar> {
   }
 
   void _updatePage(int value) {
-    setState(() {
-      _page = value;
-    });
+    context.read<UserProvider>().setBottomBarIndex(value);
   }
 }

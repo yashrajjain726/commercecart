@@ -2,6 +2,7 @@ import 'package:commercecart/models/user.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
+  int userbottomBarIndex = 0;
   User _user = User(
     id: '',
     email: '',
@@ -22,6 +23,11 @@ class UserProvider extends ChangeNotifier {
 
   setUserfromModel(User user) {
     _user = user;
+    notifyListeners();
+  }
+
+  setBottomBarIndex(int value) {
+    userbottomBarIndex = value;
     notifyListeners();
   }
 }

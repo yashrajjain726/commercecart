@@ -36,4 +36,36 @@ class AddressService {
       showSnackbar(context, e.toString());
     }
   }
+
+  void placeOrder(
+      {required BuildContext context,
+      required String address,
+      required double totalPrice}) async {
+    final userProvider = context.read<UserProvider>();
+
+    try {
+      http.Response response = await http.post(
+          Uri.parse('${Globals.URI}/api/user/order-product'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token
+          },
+          body: jsonEncode({
+            'cart': userProvider.user.cartList,
+            'address': address,
+            'totalPrice': totalPrice
+          }));
+      print(response);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            User user = userProvider.user.copyWith(cartList: []);
+            userProvider.setUserfromModel(user);
+            showSnackbar(context, 'Your order has been placed successfully..');
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
 }

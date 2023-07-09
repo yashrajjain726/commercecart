@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:commercecart/features/address/services/address_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class ConfirmAddressScreen extends StatefulWidget {
 }
 
 class _ConfirmAddressScreenState extends State<ConfirmAddressScreen> {
+  final AddressService addressService = AddressService();
   List<PaymentItem> paymentItems = [];
   final Future<PaymentConfiguration> _applePayConfigFuture =
       PaymentConfiguration.fromAsset('applepay.json');
@@ -32,6 +34,13 @@ class _ConfirmAddressScreenState extends State<ConfirmAddressScreen> {
           label: 'Total Amount',
           status: PaymentItemStatus.final_price)
     ];
+  }
+
+  void onPaymentResult(paymentResult) {
+    addressService.placeOrder(
+        context: context,
+        address: context.read<UserProvider>().user.address,
+        totalPrice: widget.amount);
   }
 
   @override
@@ -108,6 +117,4 @@ class _ConfirmAddressScreenState extends State<ConfirmAddressScreen> {
       ),
     );
   }
-
-  void onPaymentResult(paymentResult) {}
 }
