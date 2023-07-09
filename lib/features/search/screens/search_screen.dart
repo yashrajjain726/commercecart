@@ -1,8 +1,8 @@
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/features/home/widgets/address_box.dart';
-import 'package:commercecart/features/search/services/search_services.dart';
 import 'package:commercecart/features/search/widgets/search_product_result_card.dart';
 import 'package:commercecart/models/product.dart';
+import 'package:commercecart/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<Product>? products;
-  final SearchServices searchServices = SearchServices();
+  final UserService userService = UserService();
   @override
   void initState() {
     super.initState();
@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   fetchSearchBasedProducts() async {
     products =
-        await searchServices.fetchSearchBasedProducts(context, widget.query);
+        await userService.fetchSearchBasedProducts(context, widget.query);
     setState(() {});
   }
 

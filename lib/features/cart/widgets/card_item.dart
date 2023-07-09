@@ -1,10 +1,8 @@
-import 'package:commercecart/common/widgets/stars.dart';
 import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/features/cart/services/cart_services.dart';
 import 'package:commercecart/features/product/screens/product_detail_screen.dart';
-import 'package:commercecart/features/product/services/product_detail_service.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/user_provider.dart';
+import 'package:commercecart/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +15,7 @@ class CartItem extends StatefulWidget {
 }
 
 class _CartItemState extends State<CartItem> {
-  final ProductDetailService productDetailService = ProductDetailService();
-  final CartServices cartServices = CartServices();
+  final UserService userService = UserService();
   @override
   Widget build(BuildContext context) {
     final product = context.watch<UserProvider>().user.cartList[widget.index];
@@ -88,7 +85,7 @@ class _CartItemState extends State<CartItem> {
                         IconButton(
                           icon: const Icon(Icons.remove, size: 18),
                           onPressed: () {
-                            cartServices.removeProductfromCart(
+                            userService.removeProductfromCart(
                                 context: context, productId: productMap.id!);
                           },
                         ),
@@ -99,7 +96,7 @@ class _CartItemState extends State<CartItem> {
                         IconButton(
                           icon: const Icon(Icons.add, size: 18),
                           onPressed: () {
-                            productDetailService.addProductToCart(
+                            userService.addProductToCart(
                                 context: context, productId: productMap.id!);
                           },
                         ),

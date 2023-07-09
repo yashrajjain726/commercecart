@@ -2,8 +2,8 @@ import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/common/widgets/custom_textformfield.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/address/services/address_service.dart';
 import 'package:commercecart/providers/user_provider.dart';
+import 'package:commercecart/services/user_service.dart';
 import 'package:commercecart/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController _pincodeController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   String? address;
-  final AddressService addressService = AddressService();
+  final UserService userService = UserService();
   @override
   void dispose() {
     super.dispose();
@@ -116,7 +116,7 @@ class _AddressScreenState extends State<AddressScreen> {
                           if (_formKey.currentState!.validate()) {
                             final finalAddress =
                                 '${_flatController.text}, ${_areaController.text} , ${_pincodeController.text} , ${_cityController.text}';
-                            addressService.updateAddress(
+                            userService.updateAddress(
                                 context: context, address: finalAddress);
                           }
                         })

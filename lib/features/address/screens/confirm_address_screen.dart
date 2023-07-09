@@ -1,5 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:commercecart/features/address/services/address_service.dart';
+import 'package:commercecart/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ class ConfirmAddressScreen extends StatefulWidget {
 }
 
 class _ConfirmAddressScreenState extends State<ConfirmAddressScreen> {
-  final AddressService addressService = AddressService();
+  final UserService userService = UserService();
   List<PaymentItem> paymentItems = [];
   final Future<PaymentConfiguration> _applePayConfigFuture =
       PaymentConfiguration.fromAsset('applepay.json');
@@ -37,7 +36,7 @@ class _ConfirmAddressScreenState extends State<ConfirmAddressScreen> {
   }
 
   void onPaymentResult(paymentResult) {
-    addressService.placeOrder(
+    userService.placeOrder(
         context: context,
         address: context.read<UserProvider>().user.address,
         totalPrice: widget.amount);

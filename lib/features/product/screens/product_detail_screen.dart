@@ -5,10 +5,10 @@ import 'package:commercecart/common/widgets/stars.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/cart/screens/cart_screen.dart';
-import 'package:commercecart/features/product/services/product_detail_service.dart';
 import 'package:commercecart/features/search/screens/search_screen.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/user_provider.dart';
+import 'package:commercecart/services/user_service.dart';
 import 'package:commercecart/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -28,7 +28,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final AppSharedPreference preference = AppSharedPreference();
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
-  final ProductDetailService productDetailService = ProductDetailService();
+  final UserService userService = UserService();
   double avgRating = 0;
   double myRating = 0;
 
@@ -200,7 +200,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           );
                         },
                         onRatingUpdate: (value) {
-                          productDetailService.rateProduct(
+                          userService.rateProduct(
                               context: context,
                               product: widget.product,
                               rating: value);
@@ -214,7 +214,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomButton(
                       onPressed: () {
-                        productDetailService.addProductToCart(
+                        userService.addProductToCart(
                             context: context, productId: widget.product.id!);
                         showSnackbar(
                             context, 'Product added to cart successfully..');
