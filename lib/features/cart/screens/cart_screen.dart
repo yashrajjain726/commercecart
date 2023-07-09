@@ -1,5 +1,7 @@
 import 'package:commercecart/common/widgets/custom_button.dart';
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/features/address/screens/address_screen.dart';
+import 'package:commercecart/features/address/screens/confirm_address_screen.dart';
 import 'package:commercecart/features/cart/widgets/card_item.dart';
 import 'package:commercecart/features/cart/widgets/cart_subtotal.dart';
 import 'package:commercecart/features/home/widgets/address_box.dart';
@@ -20,6 +22,10 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>().user;
+    double sum = 0;
+    userProvider.cartList
+        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
+        .toList();
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -40,7 +46,15 @@ class _CartScreenState extends State<CartScreen> {
                 child: CustomButton(
                     text: Text(
                         'Proceed to Buy ${userProvider.cartList.length} items'),
-                    onPressed: () {}),
+                    onPressed: () {
+                      (userProvider.address != null &&
+                              userProvider.address.isNotEmpty)
+                          ? Navigator.pushNamed(
+                              context, ConfirmAddressScreen.routeName,
+                              arguments: sum)
+                          : Navigator.pushNamed(
+                              context, AddressScreen.routeName);
+                    }),
               ),
               const SizedBox(height: 15),
               const Divider(thickness: 1),

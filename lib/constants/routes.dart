@@ -1,4 +1,6 @@
 import 'package:commercecart/common/widgets/user_bottombar.dart';
+import 'package:commercecart/features/address/screens/address_screen.dart';
+import 'package:commercecart/features/address/screens/confirm_address_screen.dart';
 import 'package:commercecart/features/admin/screens/add_product_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/cart/screens/cart_screen.dart';
@@ -31,6 +33,14 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return buildRoute(screen: ProductDetailScreen(product: product));
     case CartScreen.routeName:
       return buildRoute(screen: const CartScreen());
+    case AddressScreen.routeName:
+      return buildRoute(screen: const AddressScreen());
+    case ConfirmAddressScreen.routeName:
+      var amount = settings.arguments as double;
+      return buildRoute(
+          screen: ConfirmAddressScreen(
+        amount: amount,
+      ));
     default:
       return buildRoute(screen: const NoPageFound());
   }

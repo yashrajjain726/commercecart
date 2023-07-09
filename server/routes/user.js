@@ -60,4 +60,16 @@ userRouter.delete(
   }
 );
 
+userRouter.post("/api/user/update-address", auth, async (request, response) => {
+  try {
+    const { address } = request.body;
+    let user = await User.findById(request.user);
+    user.address = address;
+    user = await user.save();
+    response.json(user);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = userRouter;
