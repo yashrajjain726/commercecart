@@ -106,4 +106,13 @@ userRouter.post("/api/user/order-product", auth, async (request, response) => {
   }
 });
 
+userRouter.get("/api/user/orders", auth, async (request, response) => {
+  try {
+    const orders = await Order.find({ userId: request.user });
+    response.json(orders);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = userRouter;

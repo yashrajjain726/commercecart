@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
+import 'package:commercecart/models/orders.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/models/user.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -176,5 +176,38 @@ class UserService {
     } catch (e) {
       showSnackbar(context, e.toString());
     }
+  }
+
+  Future<List<OrdersModel>> fetchUserOrderedProducts(
+      {required BuildContext context}) async {
+    final List<OrdersModel> orders = [];
+    final userProvider = context.read<UserProvider>().user;
+    final userId = userProvider.id;
+    try {
+      http.Response response =
+          await http.get(Uri.parse('${Globals.URI}/api/user/orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.token
+      });
+      print(response.body);
+      httpErrorHandler(
+        response: response,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(response.body).length; i++) {
+            orders.add(
+              OrdersModel.fromJson(
+                jsonEncode(
+                  jsonDecode(response.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+    return orders;
   }
 }
