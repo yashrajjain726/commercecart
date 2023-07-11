@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -72,14 +73,14 @@ class AuthService {
           response: response,
           context: context,
           onSuccess: () async {
-            Provider.of<UserProvider>(context, listen: false)
-                .setUser(response.body);
+            context.read<UserProvider>().setUser(response.body);
             preference.setUserToken(
                 Globals.AUTHTOKEN, jsonDecode(response.body)['token']);
-
-            Navigator.pushNamedAndRemoveUntil(
-                context, UserBottomBar.routeName, (route) => false);
           });
+      context.read<UserProvider>().setBottomBarIndex(0);
+      (jsonDecode(response.body)['type'] == "user")
+          ? Navigator.pushNamed(context, UserBottomBar.routeName)
+          : Navigator.pushNamed(context, AdminBottomBar.routeName);
     } catch (e) {
       showSnackbar(context, e.toString());
     }
@@ -106,8 +107,7 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token
         });
-        var userProvider = Provider.of<UserProvider>(context, listen: false);
-        userProvider.setUser(userResponse.body);
+        context.read<UserProvider>().setUser(userResponse.body);
       }
     } catch (e) {
       showSnackbar(context, e.toString());

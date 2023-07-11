@@ -43,10 +43,10 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: const AppBarTheme(
               elevation: 0, iconTheme: IconThemeData(color: Colors.white))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? (Provider.of<UserProvider>(context).user.type == "user")
-              ? UserBottomBar()
-              : AdminBottomBar()
+      home: context.watch<UserProvider>().user.token.isNotEmpty
+          ? (context.watch<UserProvider>().user.type == "user")
+              ? const UserBottomBar()
+              : const AdminBottomBar()
           : const AuthScreen(),
     );
   }
