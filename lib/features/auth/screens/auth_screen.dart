@@ -24,6 +24,15 @@ class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> _signInKey = GlobalKey();
   final GlobalKey<FormState> _signUpKey = GlobalKey();
   Auth _auth = Auth.signup;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

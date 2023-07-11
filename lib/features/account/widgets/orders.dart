@@ -1,4 +1,5 @@
 import 'package:commercecart/features/account/widgets/order_item.dart';
+import 'package:commercecart/features/order/screens/order_detail_screen.dart';
 import 'package:commercecart/models/orders.dart';
 import 'package:commercecart/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +60,13 @@ class _OrdersState extends State<Orders> {
                       scrollDirection: Axis.horizontal,
                       itemCount: orders!.length,
                       itemBuilder: (context, index) {
-                        return OrderItem(
-                            img: orders![index].products[0].images[0]);
+                        return GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                              context, OrderDetailScreen.routeName,
+                              arguments: orders![index]),
+                          child: OrderItem(
+                              img: orders![index].products[0].images[0]),
+                        );
                       },
                     ),
                   )

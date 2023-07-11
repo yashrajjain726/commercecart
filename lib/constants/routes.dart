@@ -7,8 +7,10 @@ import 'package:commercecart/features/cart/screens/cart_screen.dart';
 import 'package:commercecart/features/home/screens/category_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/features/no_page_found.dart';
+import 'package:commercecart/features/order/screens/order_detail_screen.dart';
 import 'package:commercecart/features/product/screens/product_detail_screen.dart';
 import 'package:commercecart/features/search/screens/search_screen.dart';
+import 'package:commercecart/models/orders.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -37,10 +39,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return buildRoute(screen: const AddressScreen());
     case ConfirmAddressScreen.routeName:
       var amount = settings.arguments as double;
-      return buildRoute(
-          screen: ConfirmAddressScreen(
-        amount: amount,
-      ));
+      return buildRoute(screen: ConfirmAddressScreen(amount: amount));
+    case OrderDetailScreen.routeName:
+      var order = settings.arguments as OrdersModel;
+      return buildRoute(screen: OrderDetailScreen(order: order));
     default:
       return buildRoute(screen: const NoPageFound());
   }
