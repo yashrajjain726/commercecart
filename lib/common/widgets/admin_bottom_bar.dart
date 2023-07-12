@@ -1,4 +1,5 @@
 import 'package:commercecart/constants/globals.dart';
+import 'package:commercecart/features/admin/screens/analytics_screen.dart';
 import 'package:commercecart/features/admin/screens/orders_screen.dart';
 import 'package:commercecart/features/admin/screens/products_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
@@ -19,7 +20,7 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
     const ProductsScreen(),
-    const Center(child: Text('Analytics Page')),
+    const AnalyticsScreen(),
     const OrdersScreen()
   ];
   @override

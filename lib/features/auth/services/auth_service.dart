@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 
+import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/providers/user_provider.dart';

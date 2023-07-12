@@ -1,8 +1,8 @@
+import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/features/address/screens/address_screen.dart';
 import 'package:commercecart/features/address/screens/confirm_address_screen.dart';
 import 'package:commercecart/features/admin/screens/add_product_screen.dart';
-import 'package:commercecart/features/admin/screens/admin_screen.dart';
 import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/cart/screens/cart_screen.dart';
 import 'package:commercecart/features/home/screens/category_screen.dart';
