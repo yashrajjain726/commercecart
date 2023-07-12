@@ -66,8 +66,8 @@ adminRouter.post(
   }
 );
 
-adminRouter.post(
-  "/admin/analytics/earning ",
+adminRouter.get(
+  "/admin/analytics/earning",
   admin,
   async (request, response) => {
     try {
@@ -76,8 +76,9 @@ adminRouter.post(
       for (let i = 0; i < orders.length; i++) {
         let singleOrder = orders[i];
         for (let j = 0; j < singleOrder.products.length; j++) {
-          let singleProduct = singleOrder.products[j];
-          totalEarning += singleProduct.price * singleProduct.quantity;
+          let singleProductObject = singleOrder.products[j];
+          totalEarning +=
+            singleProductObject.product.price * singleProductObject.quantity;
         }
       }
 
@@ -103,12 +104,17 @@ adminRouter.post(
 );
 async function fetchCategoryWiseProducts(category) {
   let earnings = 0;
-  let categoryOrders = Order.find({ "products.product.category": category });
+  let categoryOrders = await Order.find({
+    "products.product.category": category,
+  });
   for (let i = 0; i < categoryOrders.length; i++) {
     let singleOrder = categoryOrders[i];
     for (let j = 0; j < singleOrder.products.length; j++) {
-      let singleProduct = singleOrder.products[j];
-      earning += singleProduct.price * singleProduct.quantity;
+      let singleProductObject = singleOrder.products[j];
+      if (singleProductObject.product.category == category) {
+        earnings +=
+          singleProductObject.product.price * singleProductObject.quantity;
+      }
     }
   }
   return earnings;

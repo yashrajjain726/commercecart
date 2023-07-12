@@ -5,6 +5,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
+import 'package:commercecart/models/analytics.dart';
 import 'package:commercecart/models/orders.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/product_provider.dart';
@@ -177,5 +178,49 @@ class AdminService {
     } catch (e) {
       showSnackbar(context, e.toString());
     }
+  }
+
+  Future<Map<String, dynamic>> getAdminAnalytics(
+      {required BuildContext context}) async {
+    final userProvider = context.read<UserProvider>();
+    List<Analytics> sales = [];
+    int totalEarning = 0;
+
+    try {
+      http.Response response = await http.get(
+        Uri.parse('${Globals.URI}/admin/analytics/earning'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        },
+      );
+
+      print(response.body);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            var json = jsonDecode(response.body);
+            totalEarning = json['totalEarning'];
+            sales = [
+              Analytics(label: 'Mobiles', totalEarning: json['mobileEarnings']),
+              Analytics(
+                  label: 'Essentials',
+                  totalEarning: json['essentialsEarnings']),
+              Analytics(
+                  label: 'Appliances',
+                  totalEarning: json['appliancesEarnings']),
+              Analytics(label: 'Books', totalEarning: json['booksEarnings']),
+              Analytics(
+                  label: 'Fashion', totalEarning: json['fashionEarnings']),
+            ];
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+    return {
+      'sales': sales,
+      'totalEarning': totalEarning,
+    };
   }
 }
