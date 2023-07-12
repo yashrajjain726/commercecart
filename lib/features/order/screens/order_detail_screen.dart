@@ -1,10 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:commercecart/common/widgets/appbar_search_widget.dart';
+import 'package:commercecart/common/widgets/custom_button.dart';
+import 'package:commercecart/features/admin/services/admin_service.dart';
+import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/models/orders.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   final OrdersModel order;
@@ -17,6 +21,7 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int _currentStep = 0;
+  final AdminService adminService = AdminService();
 
   @override
   void initState() {
@@ -24,8 +29,17 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     _currentStep = widget.order.status;
   }
 
+  changeOrderStatusAsAdmin() {
+    adminService.changeOrderStatus(
+        context: context, order: widget.order, onSuccess: () {});
+    setState(() {
+      _currentStep += 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserProvider>().user;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -82,7 +96,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     children: [
                       for (int i = 0; i < widget.order.products.length; i++)
                         Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black12)),
                           child: Row(
@@ -129,6 +143,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     child: Stepper(
                         currentStep: _currentStep,
                         controlsBuilder: (context, details) {
+                          if (user.type != "user") {
+                            return CustomButton(
+                                text: Text('Done '),
+                                onPressed: changeOrderStatusAsAdmin);
+                          }
                           return const SizedBox.shrink();
                         },
                         steps: [

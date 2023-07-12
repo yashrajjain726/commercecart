@@ -5,6 +5,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
+import 'package:commercecart/models/orders.dart';
 import 'package:commercecart/models/product.dart';
 import 'package:commercecart/providers/product_provider.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -112,6 +113,66 @@ class AdminService {
           onSuccess: () {
             onSuccess();
             showSnackbar(context, 'Product has been deleted successfully...');
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  Future<List<OrdersModel>> fetchAllOrdersReceived(BuildContext context) async {
+    final userProvider = context.read<UserProvider>();
+    final List<OrdersModel> orders = [];
+    try {
+      http.Response response = await http.get(
+        Uri.parse('${Globals.URI}/admin/orders-received'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        },
+      );
+      print(response.body);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(response.body).length; i++) {
+              orders.add(
+                OrdersModel.fromJson(
+                  jsonEncode(
+                    jsonDecode(response.body)[i],
+                  ),
+                ),
+              );
+            }
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+    return orders;
+  }
+
+  Future<void> changeOrderStatus(
+      {required BuildContext context,
+      required OrdersModel order,
+      required VoidCallback onSuccess}) async {
+    final userProvider = context.read<UserProvider>();
+    try {
+      http.Response response =
+          await http.post(Uri.parse('${Globals.URI}/admin/order/change-status'),
+              headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': userProvider.user.token
+              },
+              body: jsonEncode({'id': order.id}));
+
+      print(response.body);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            onSuccess();
+            showSnackbar(
+                context, 'Product status has been updated successfully..');
           });
     } catch (e) {
       showSnackbar(context, e.toString());
