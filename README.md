@@ -1,16 +1,50 @@
-# commercecart
+# CommerceCart
 
-A new Flutter project.
+Commercecart is an fullstack shopping app, which has two user compatitlity i.e user and admin. It is built using flutter and node.js.
+Here is the commercecart backend :
 
-## Getting Started
+## Admin Structure
 
-This project is a starting point for a Flutter application.
+<table>
+<tr>
+ <td><img src="assets/screenshots/auth.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/admin_main.png"  alt="1" width = 500></td>   
+</tr>
+</table>
+<table>
+<tr>
+ <td><img src="assets/screenshots/admin_add_product.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/earning_analytics.png"  alt="1" width = 500></td>   
+</tr>
+</table>
+<table>
+<tr>
+ <td><img src="assets/screenshots/orders_received.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/change_order_status_admin.png"  alt="1" width = 500></td>   
+</tr>
+</table>
 
-A few resources to get you started if this is your first Flutter project:
+## Mobile UI
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<table>
+<tr>
+ <td><img src="assets/screenshots/user_main.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/user_account.png"  alt="1" width = 500></td>   
+</tr>
+</table>
+<table>
+<tr>
+ <td><img src="assets/screenshots/user_cart.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/user_payment_details.png"  alt="1" width = 500></td>   
+</tr>
+</table>
+<table>
+<tr>
+ <td><img src="assets/screenshots/user_final_pay.png"  alt="1" width = 500 ></td>   
+  <td><img src="assets/screenshots/user_order_details.png"  alt="1" width = 500></td>   
+</tr>
+<tr>
+ <td><img src="assets/screenshots/user_category_wise_product_listing.png"  alt="1" width = 500 ></td>
+ <td><img src="assets/screenshots/user_change_address.png"  alt="1" width = 500 ></td>
+</tr>
+</table>
