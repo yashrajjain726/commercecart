@@ -1,10 +1,9 @@
 import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/features/account/screens/account_screen.dart';
-import 'package:commercecart/features/admin/screens/admin_screen.dart';
+import 'package:commercecart/features/admin/screens/analytics_screen.dart';
+import 'package:commercecart/features/admin/screens/orders_screen.dart';
 import 'package:commercecart/features/admin/screens/products_screen.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
+import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 
 class AdminBottomBar extends StatefulWidget {
   static const routeName = '/admin-home-page';
@@ -15,13 +14,14 @@ class AdminBottomBar extends StatefulWidget {
 }
 
 class _AdminBottomBarState extends State<AdminBottomBar> {
+  final AuthService authService = AuthService();
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
     const ProductsScreen(),
-    const Center(child: Text('Analytics Page')),
-    const Center(child: Text('Cart Page'))
+    const AnalyticsScreen(),
+    const OrdersScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,21 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: const Text('CommerceCart')),
-              const Text(
-                'Admin',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      alignment: Alignment.topLeft,
+                      child: const Text('CommerceCart')),
+                  const Text(
+                    'Admin',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              IconButton(
+                  onPressed: () => authService.logout(context),
+                  icon: const Icon(Icons.logout_outlined))
             ],
           ),
         ),

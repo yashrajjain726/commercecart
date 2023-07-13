@@ -6,15 +6,21 @@ const mongoose = require("mongoose");
 
 // IMPORTS FROM FILES
 const authRouter = require("./routes/auth");
+const productRouter = require("./routes/product");
+const adminRouter = require("./routes/admin");
+const userRouter = require("./routes/user");
 
 // INITIALIZE
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const DB =
-  "mongodb+srv://admin:admin@cluster0.njlw8gx.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://secondadmin:secondadmin@cluster0.njlw8gx.mongodb.net/?retryWrites=true&w=majority";
 // MIDDLEWARE
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
+app.use(productRouter);
+app.use(userRouter);
 
 // CONNECTION
 mongoose

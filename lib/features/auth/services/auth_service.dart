@@ -2,20 +2,22 @@
 
 import 'dart:convert';
 
+import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
+import 'package:commercecart/features/auth/screens/auth_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
 import 'package:commercecart/providers/user_provider.dart';
+import 'package:commercecart/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/user.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  AppSharedPreference preference = AppSharedPreference();
   Future<void> signUpUser(
       {required BuildContext context,
       required String email,
@@ -29,7 +31,8 @@ class AuthService {
           password: password,
           token: '',
           type: '',
-          address: '');
+          address: '',
+          cartList: []);
       http.Response response = await http.post(
         Uri.parse('${Globals.URI}/api/signup'),
         body: user.toJson(),
@@ -70,15 +73,14 @@ class AuthService {
           response: response,
           context: context,
           onSuccess: () async {
-            SharedPreferences preferences =
-                await SharedPreferences.getInstance();
-            Provider.of<UserProvider>(context, listen: false)
-                .setUser(response.body);
-            await preferences.setString(
+            context.read<UserProvider>().setUser(response.body);
+            preference.setUserToken(
                 Globals.AUTHTOKEN, jsonDecode(response.body)['token']);
-            Navigator.pushNamedAndRemoveUntil(
-                context, UserBottomBar.routeName, (route) => false);
           });
+      context.read<UserProvider>().setBottomBarIndex(0);
+      (jsonDecode(response.body)['type'] == "user")
+          ? Navigator.pushNamed(context, UserBottomBar.routeName)
+          : Navigator.pushNamed(context, AdminBottomBar.routeName);
     } catch (e) {
       showSnackbar(context, e.toString());
     }
@@ -86,10 +88,9 @@ class AuthService {
 
   Future<void> getUserData(BuildContext context) async {
     try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      String? token = preferences.getString(Globals.AUTHTOKEN);
+      String? token = await preference.getUserToken(Globals.AUTHTOKEN);
       if (token == null) {
-        await preferences.setString(Globals.AUTHTOKEN, '');
+        await preference.setUserToken(Globals.AUTHTOKEN, '');
       }
       final tokenResponse = await http.post(
         Uri.parse('${Globals.URI}/api/validate/token'),
@@ -106,9 +107,18 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token
         });
-        var userProvider = Provider.of<UserProvider>(context, listen: false);
-        userProvider.setUser(userResponse.body);
+        context.read<UserProvider>().setUser(userResponse.body);
       }
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      await preference.setUserToken(Globals.AUTHTOKEN, "");
+      Navigator.pushNamedAndRemoveUntil(
+          context, AuthScreen.routeName, (route) => false);
     } catch (e) {
       showSnackbar(context, e.toString());
     }

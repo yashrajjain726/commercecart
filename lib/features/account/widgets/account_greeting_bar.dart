@@ -9,7 +9,7 @@ class AccountGreetingBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    final user = context.watch<UserProvider>().user;
     return Container(
       decoration: const BoxDecoration(gradient: Globals.appBarGradient),
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
