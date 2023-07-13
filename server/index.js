@@ -11,7 +11,7 @@ const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
 
 // INITIALIZE
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const DB =
   "mongodb+srv://secondadmin:secondadmin@cluster0.njlw8gx.mongodb.net/?retryWrites=true&w=majority";
