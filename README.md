@@ -55,20 +55,14 @@ User Features:
 <tr>
  <td><img src="assets/screenshots/user_main.png"  alt="1" width = 300 ></td>   
   <td><img src="assets/screenshots/user_account.png"  alt="1" width = 300></td>   
-  <td><img src="assets/screenshots/user_cart.png"  alt="1" width = 300 ></td>   
+  <td><img src="assets/screenshots/user_cart.png"  alt="1" width = 300 ></td>     <td><img src="assets/screenshots/user_payment_details.png"  alt="1" width = 300></td>   
 </tr>
 </table>
 <table>
 <tr>
-  <td><img src="assets/screenshots/user_payment_details.png"  alt="1" width = 300></td>   
+
   <td><img src="assets/screenshots/user_final_pay.png"  alt="1" width = 300 ></td>   
-  <td><img src="assets/screenshots/user_order_details.png"  alt="1" width = 300></td>  
-</tr>
-</table>
-<table>
-<tr>
-   <td><img src="assets/screenshots/user_category_wise_product_listing.png"  alt="1" width = 300 ></td>
+  <td><img src="assets/screenshots/user_order_details.png"  alt="1" width = 300></td>     <td><img src="assets/screenshots/user_category_wise_product_listing.png"  alt="1" width = 300 ></td>
  <td><img src="assets/screenshots/user_change_address.png"  alt="1" width = 300 ></td>
 </tr>
-
 </table>
