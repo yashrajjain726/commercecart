@@ -1,7 +1,8 @@
 # CommerceCart
 
 Commercecart is an fullstack shopping app, which has two user compatitlity i.e user and admin. It is built using flutter and node.js.
-Here is the commercecart backend :[https://github.com/yashrajjain726/commercecart-backend](hhttps://github.com/yashrajjain726/commercecart-backend)
+Here is the commercecart backend :
+[https://github.com/yashrajjain726/commercecart-backend/](https://github.com/yashrajjain726/commercecart-backend/)
 
 Technology used:
 
