@@ -171,7 +171,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
         ),
-        bottomNavigationBar:
-            CustomButton(onPressed: () {}, text: const Text('Buy Now')));
+        bottomNavigationBar: CustomButton(
+            onPressed: () {
+              userService.addProductToCart(
+                  context: context, productId: widget.product.id!);
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
+            text: const Text('Buy Now')));
   }
 }

@@ -48,7 +48,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 decoration:
                     const BoxDecoration(gradient: Globals.appBarGradient),
               ),
-              title: const AppBarSearchWidget()),
+              title: context.watch<UserProvider>().user.type == "admin"
+                  ? const Text('Order Details')
+                  : const AppBarSearchWidget()),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -145,7 +147,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         controlsBuilder: (context, details) {
                           if (user.type != "user") {
                             return CustomButton(
-                                text: Text('Done '),
+                                text: const Text('Done '),
                                 onPressed: changeOrderStatusAsAdmin);
                           }
                           return const SizedBox.shrink();
