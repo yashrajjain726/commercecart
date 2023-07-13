@@ -80,7 +80,9 @@ class AuthService {
       context.read<UserProvider>().setBottomBarIndex(0);
       (jsonDecode(response.body)['type'] == "user")
           ? Navigator.pushNamed(context, UserBottomBar.routeName)
-          : Navigator.pushNamed(context, AdminBottomBar.routeName);
+          : (jsonDecode(response.body)['type'] == "admin")
+              ? Navigator.pushNamed(context, AdminBottomBar.routeName)
+              : null;
     } catch (e) {
       showSnackbar(context, e.toString());
     }

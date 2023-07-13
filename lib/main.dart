@@ -46,7 +46,9 @@ class _MyAppState extends State<MyApp> {
       home: context.watch<UserProvider>().user.token.isNotEmpty
           ? (context.watch<UserProvider>().user.type == "user")
               ? const UserBottomBar()
-              : const AdminBottomBar()
+              : (context.watch<UserProvider>().user.type == "admin")
+                  ? const AdminBottomBar()
+                  : null
           : const AuthScreen(),
     );
   }

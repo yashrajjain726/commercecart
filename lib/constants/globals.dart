@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Globals {
-  static const URI = 'https://gilded-kashata-b42521.netlify.app/';
+  static const URI = 'https://commercecart-backend.onrender.com';
 
   // COLORS
   static const appBarGradient = LinearGradient(
