@@ -32,6 +32,20 @@ User Features:
 - Admin can modify the current status of the order, i.e pending, received, delivered, done
 - Admin can delete there product, it they don't wish to continue selling the product
 
+## Test account:
+
+### Admin:
+
+email: admin@commercecart.com
+<br>
+password: admin
+
+### User:
+
+email: user@commercecart.com
+<br>
+password: user
+
 ## Admin UI Demo
 
 <table>
