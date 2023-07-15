@@ -26,6 +26,14 @@ String? validateEmail(String? value, String text) {
   return null;
 }
 
+validateConfirmPassword(String? passValue, String? confirmPassValue) {
+  checkNullAndEmpty(confirmPassValue, 'confirm password');
+  if (confirmPassValue != passValue) {
+    return 'Your confirm password doesn\t match with password';
+  }
+  return null;
+}
+
 Future<List<File>> pickImages() async {
   List<File> images = [];
   try {

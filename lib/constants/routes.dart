@@ -3,7 +3,8 @@ import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/features/address/screens/address_screen.dart';
 import 'package:commercecart/features/address/screens/confirm_address_screen.dart';
 import 'package:commercecart/features/admin/screens/add_product_screen.dart';
-import 'package:commercecart/features/auth/screens/auth_screen.dart';
+import 'package:commercecart/features/auth/screens/login_screen.dart';
+import 'package:commercecart/features/auth/screens/signup_screeen.dart';
 import 'package:commercecart/features/cart/screens/cart_screen.dart';
 import 'package:commercecart/features/home/screens/category_screen.dart';
 import 'package:commercecart/features/home/screens/home_screen.dart';
@@ -18,8 +19,10 @@ import 'package:flutter/material.dart';
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   print(settings);
   switch (settings.name) {
-    case AuthScreen.routeName:
-      return buildRoute(screen: const AuthScreen());
+    case LoginScreen.routeName:
+      return buildRoute(screen: const LoginScreen());
+    case SignUpScreen.routeName:
+      return buildRoute(screen: const SignUpScreen());
     case HomeScreen.routeName:
       return buildRoute(screen: const HomeScreen());
     case UserBottomBar.routeName:
