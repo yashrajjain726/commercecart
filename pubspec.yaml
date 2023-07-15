@@ -34,19 +34,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   dotted_border: ^2.0.0+3
   file_picker: ^5.2.11
+  fl_chart: ^0.62.0
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
   http: ^0.13.6
+  intl: ^0.17.0
+  pay: ^1.1.1
   provider: ^6.0.5
   shared_preferences: ^2.1.2
-  pay: ^1.1.1
-  intl: ^0.17.0
-  fl_chart: ^0.62.0
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
   flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^2.0.0
 
 flutter_launcher_icons:
   android: "launcher_icon"

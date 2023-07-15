@@ -2,7 +2,7 @@ import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/routes.dart';
-import 'package:commercecart/features/auth/screens/auth_screen.dart';
+import 'package:commercecart/features/auth/screens/login_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
 import 'package:commercecart/providers/product_provider.dart';
 import 'package:commercecart/providers/user_provider.dart';
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
               : (context.watch<UserProvider>().user.type == "admin")
                   ? const AdminBottomBar()
                   : null
-          : const AuthScreen(),
+          : const LoginScreen(),
     );
   }
 }

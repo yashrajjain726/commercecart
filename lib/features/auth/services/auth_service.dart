@@ -2,11 +2,12 @@
 
 import 'dart:convert';
 
+import 'package:commercecart/common/ui_widgets/loader.dart';
 import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/auth/screens/auth_screen.dart';
+import 'package:commercecart/features/auth/screens/login_screen.dart';
 import 'package:commercecart/features/auth/services/http_error_handler.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:commercecart/utils/shared_pref.dart';
@@ -24,6 +25,7 @@ class AuthService {
       required String name,
       required String password}) async {
     try {
+      Loader().showLoadingDialog(context);
       User user = User(
           id: '',
           email: email,
@@ -41,13 +43,16 @@ class AuthService {
         },
       );
       print(response.body);
+      Loader().closeLoadingDialog(context);
       httpErrorHandler(
           response: response,
           context: context,
           onSuccess: () {
             showSnackbar(context, 'Account Created, Login with Credentials');
+            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
           });
     } catch (e) {
+      Loader().closeLoadingDialog(context);
       print(e);
       showSnackbar(context, e.toString());
     }
@@ -58,6 +63,7 @@ class AuthService {
       required String email,
       required String password}) async {
     try {
+      Loader().showLoadingDialog(context);
       http.Response response = await http.post(
         Uri.parse('${Globals.URI}/api/signin'),
         body: jsonEncode({
@@ -68,6 +74,7 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8'
         },
       );
+      Loader().closeLoadingDialog(context);
       print(response.body);
       httpErrorHandler(
           response: response,
@@ -85,6 +92,7 @@ class AuthService {
                   context, AdminBottomBar.routeName)
               : null;
     } catch (e) {
+      Loader().closeLoadingDialog(context);
       showSnackbar(context, e.toString());
     }
   }
@@ -121,7 +129,7 @@ class AuthService {
     try {
       await preference.setUserToken(Globals.AUTHTOKEN, "");
       Navigator.pushNamedAndRemoveUntil(
-          context, AuthScreen.routeName, (route) => false);
+          context, LoginScreen.routeName, (route) => false);
     } catch (e) {
       showSnackbar(context, e.toString());
     }
