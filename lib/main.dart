@@ -4,6 +4,7 @@ import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/routes.dart';
 import 'package:commercecart/features/auth/screens/login_screen.dart';
 import 'package:commercecart/features/auth/services/auth_service.dart';
+import 'package:commercecart/features/splash/screens/splash_screen.dart';
 import 'package:commercecart/providers/product_provider.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final AuthService authService = AuthService();
-
-  @override
-  void initState() {
-    super.initState();
-    authService.getUserData(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,13 +36,7 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: const AppBarTheme(
               elevation: 0, iconTheme: IconThemeData(color: Colors.white))),
       onGenerateRoute: (settings) => onGenerateRoute(settings),
-      home: context.watch<UserProvider>().user.token.isNotEmpty
-          ? (context.watch<UserProvider>().user.type == "user")
-              ? const UserBottomBar()
-              : (context.watch<UserProvider>().user.type == "admin")
-                  ? const AdminBottomBar()
-                  : null
-          : const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

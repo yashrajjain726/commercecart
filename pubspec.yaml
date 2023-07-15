@@ -40,6 +40,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   http: ^0.13.6
   intl: ^0.17.0
+  lottie: ^2.3.2
   pay: ^1.1.1
   provider: ^6.0.5
   shared_preferences: ^2.1.2
@@ -51,20 +52,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon.png"
+  image_path: "assets/images/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "assets/icon.png"
+    image_path: "assets/images/icon.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "assets/icon.png"
+    image_path: "assets/images/icon.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "assets/icon.png"
+    image_path: "assets/images/icon.png"
   flutter_test:
     sdk: flutter
 
@@ -81,6 +82,7 @@ flutter:
     - assets/images/
     - assets/applepay.json
     - assets/gpay.json
+    - assets/splash_logo.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
