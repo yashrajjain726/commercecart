@@ -66,7 +66,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
               alignLabelWithHint: false,
               hintText: widget.hintText,
               hintStyle: const TextStyle(fontSize: 14),
-              contentPadding: const EdgeInsets.all(5),
               border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black)),
               enabledBorder: const OutlineInputBorder(

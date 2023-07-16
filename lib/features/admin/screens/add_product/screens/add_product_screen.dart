@@ -1,6 +1,8 @@
 import 'dart:io';
 
-import '../../../../../common/widgets/custom_button.dart';
+import 'package:commercecart/common/ui_widgets/custom_textfield.dart';
+
+import '../../../../../common/ui_widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_textformfield.dart';
 import '../../../../../common/widgets/dotted_carousel.dart';
 import '../../../../../constants/globals.dart';
@@ -119,61 +121,75 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    CustomTextFormField(
-                      validator: (value) => checkNullAndEmpty(value, 'name'),
-                      controller: _nameController,
-                      hintText: 'Product Name',
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      validator: (value) =>
-                          checkNullAndEmpty(value, 'description'),
-                      controller: _descController,
-                      hintText: 'Description',
-                      maxLines: 7,
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      validator: (value) => checkNullAndEmpty(value, 'price'),
-                      controller: _priceController,
-                      hintText: 'Price',
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      validator: (value) =>
-                          checkNullAndEmpty(value, 'quantity'),
-                      controller: _qntyController,
-                      hintText: 'Quantity',
-                    ),
+                    CustomTextField(
+                        controller: _nameController,
+                        text: 'Product Name',
+                        hintText: 'Enter product name',
+                        validator: (value) => checkNullAndEmpty(value, 'name')),
+                    const SizedBox(height: 5),
+                    CustomTextField(
+                        height: 120,
+                        maxLines: 7,
+                        controller: _descController,
+                        text: 'Description ',
+                        hintText: 'Enter product description',
+                        validator: (value) =>
+                            checkNullAndEmpty(value, 'description')),
+                    const SizedBox(height: 5),
+                    CustomTextField(
+                        controller: _priceController,
+                        text: 'Price',
+                        hintText: '1000.00',
+                        validator: (value) =>
+                            checkNullAndEmpty(value, 'price')),
+                    CustomTextField(
+                        controller: _qntyController,
+                        text: 'Quantity',
+                        hintText: '2000',
+                        validator: (value) =>
+                            checkNullAndEmpty(value, 'quantity')),
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: DropdownButton(
-                        onChanged: (value) {
-                          setState(() {
-                            category = value!;
-                          });
-                        },
-                        value: category,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: productCategories
-                            .map((String item) => DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item),
-                                ))
-                            .toList(),
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Category'),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                          ),
+                          child: DropdownButton(
+                            onChanged: (value) {
+                              setState(() {
+                                category = value!;
+                              });
+                            },
+                            value: category,
+                            icon: Container(
+                                alignment: Alignment.centerRight,
+                                child: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                )),
+                            items: productCategories
+                                .map((String item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ))),
       bottomNavigationBar: Container(
-          margin:
-              const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 50),
+          padding: const EdgeInsets.all(20),
           child: CustomButton(
-              text: Text('Add Product '),
+              text: 'Add Product ',
               onPressed:
                   (images.isEmpty) ? showRequiredImagesBar : addProduct)),
     );
