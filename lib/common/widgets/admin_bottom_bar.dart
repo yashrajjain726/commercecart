@@ -1,9 +1,11 @@
-import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/features/admin/screens/analytics_screen.dart';
-import 'package:commercecart/features/admin/screens/orders_screen.dart';
-import 'package:commercecart/features/admin/screens/products_screen.dart';
-import 'package:commercecart/features/auth/services/auth_service.dart';
+import '../../features/admin/screens/orders_received/screens/orders_received_screen.dart';
+import '../../features/admin/screens/product_listing/screens/product_listing_screen.dart';
+
+import '../../constants/globals.dart';
+import '../../features/profile/screens/profile_screen.dart';
+import '../../features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import '../../features/admin/screens/earning_analytics/screens/earning_analytics_screen.dart';
 
 class AdminBottomBar extends StatefulWidget {
   static const routeName = '/admin-home-page';
@@ -19,9 +21,9 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
-    const ProductsScreen(),
-    const AnalyticsScreen(),
-    const OrdersScreen()
+    const ProductListingScreen(),
+    const EarningAnalyticsScreen(),
+    const OrdersReceivedScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,9 +49,17 @@ class _AdminBottomBarState extends State<AdminBottomBar> {
                   ),
                 ],
               ),
-              IconButton(
-                  onPressed: () => authService.logout(context),
-                  icon: const Icon(Icons.logout_outlined))
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, AdminProfileScreen.routeName),
+                      icon: const Icon(Icons.person_2)),
+                  IconButton(
+                      onPressed: () => authService.logout(context),
+                      icon: const Icon(Icons.logout_outlined))
+                ],
+              ),
             ],
           ),
         ),

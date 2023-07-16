@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:commercecart/models/product.dart';
+
+import 'product.dart';
 
 class OrdersModel {
   final String id;

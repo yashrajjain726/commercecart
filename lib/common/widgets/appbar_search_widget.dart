@@ -1,6 +1,6 @@
-import 'package:commercecart/features/cart/screens/cart_screen.dart';
-import 'package:commercecart/features/search/screens/search_screen.dart';
-import 'package:commercecart/providers/user_provider.dart';
+import '../../features/user/screens/cart/screens/cart_screen.dart';
+import '../../features/user/screens/search/screens/search_screen.dart';
+import '../../providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;

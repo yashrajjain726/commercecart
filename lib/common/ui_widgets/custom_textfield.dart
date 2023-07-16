@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
   final String text;
   final double? height;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final int? maxLines;
   final bool? obscure;
   final Function(String? value) validator;
+  final bool? enabled;
 
   const CustomTextField(
       {super.key,
       required this.text,
+      this.enabled = true,
       this.height = 70,
-      required this.controller,
+      this.controller,
       required this.hintText,
       this.maxLines = 1,
       this.obscure = false,
@@ -42,6 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         SizedBox(
           height: widget.height ?? 70,
           child: TextFormField(
+            enabled: widget.enabled,
             maxLines: widget.maxLines ?? 1,
             controller: widget.controller,
             obscureText: widget.obscure == true ? passwordVisible : false,

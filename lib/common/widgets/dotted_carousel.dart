@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:commercecart/models/product.dart';
+import '../../models/product.dart';
 import 'package:flutter/material.dart';
 
 class DottedCarousel extends StatefulWidget {

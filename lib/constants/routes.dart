@@ -1,19 +1,23 @@
-import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
-import 'package:commercecart/common/widgets/user_bottombar.dart';
-import 'package:commercecart/features/address/screens/address_screen.dart';
-import 'package:commercecart/features/address/screens/confirm_address_screen.dart';
-import 'package:commercecart/features/admin/screens/add_product_screen.dart';
-import 'package:commercecart/features/auth/screens/login_screen.dart';
-import 'package:commercecart/features/auth/screens/signup_screeen.dart';
-import 'package:commercecart/features/cart/screens/cart_screen.dart';
-import 'package:commercecart/features/home/screens/category_screen.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
-import 'package:commercecart/features/no_page_found.dart';
-import 'package:commercecart/features/order/screens/order_detail_screen.dart';
-import 'package:commercecart/features/product/screens/product_detail_screen.dart';
-import 'package:commercecart/features/search/screens/search_screen.dart';
-import 'package:commercecart/models/orders.dart';
-import 'package:commercecart/models/product.dart';
+import 'package:commercecart/features/user/screens/payment/screens/payment_screen.dart';
+
+import '../features/admin/screens/add_product/screens/add_product_screen.dart';
+
+import '../common/widgets/admin_bottom_bar.dart';
+import '../common/widgets/user_bottombar.dart';
+import '../features/user/screens/address/screens/set_address_screen.dart';
+
+import '../features/profile/screens/profile_screen.dart';
+import '../features/auth/screens/login/screens/login_screen.dart';
+import '../features/auth/screens/signup/screens/signup_screen.dart';
+import '../features/user/screens/cart/screens/cart_screen.dart';
+import '../features/user/screens/home/screens/category_screen.dart';
+import '../features/user/screens/home/screens/home_screen.dart';
+import '../features/no_page_found.dart';
+import '../features/order/screens/order_detail_screen.dart';
+import '../features/user/screens/product/screens/product_detail_screen.dart';
+import '../features/user/screens/search/screens/search_screen.dart';
+import '../models/orders.dart';
+import '../models/product.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -23,6 +27,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return buildRoute(screen: const LoginScreen());
     case SignUpScreen.routeName:
       return buildRoute(screen: const SignUpScreen());
+    case AdminProfileScreen.routeName:
+      return buildRoute(screen: const AdminProfileScreen());
     case HomeScreen.routeName:
       return buildRoute(screen: const HomeScreen());
     case UserBottomBar.routeName:
@@ -44,9 +50,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return buildRoute(screen: const CartScreen());
     case AddressScreen.routeName:
       return buildRoute(screen: const AddressScreen());
-    case ConfirmAddressScreen.routeName:
+    case PaymnentScreen.routeName:
       var amount = settings.arguments as double;
-      return buildRoute(screen: ConfirmAddressScreen(amount: amount));
+      return buildRoute(screen: PaymnentScreen(amount: amount));
     case OrderDetailScreen.routeName:
       var order = settings.arguments as OrdersModel;
       return buildRoute(screen: OrderDetailScreen(order: order));

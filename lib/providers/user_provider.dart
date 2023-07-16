@@ -1,5 +1,6 @@
-import 'package:commercecart/models/user.dart';
 import 'package:flutter/material.dart';
+
+import '../models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   int userbottomBarIndex = 0;

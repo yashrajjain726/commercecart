@@ -1,8 +1,8 @@
-import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/features/account/screens/account_screen.dart';
-import 'package:commercecart/features/cart/screens/cart_screen.dart';
-import 'package:commercecart/features/home/screens/home_screen.dart';
-import 'package:commercecart/providers/user_provider.dart';
+import '../../constants/globals.dart';
+import '../../features/user/screens/account/screens/account_screen.dart';
+import '../../features/user/screens/cart/screens/cart_screen.dart';
+import '../../features/user/screens/home/screens/home_screen.dart';
+import '../../providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';

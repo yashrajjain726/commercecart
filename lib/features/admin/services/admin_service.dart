@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:commercecart/constants/globals.dart';
-import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/auth/services/http_error_handler.dart';
-import 'package:commercecart/models/analytics.dart';
-import 'package:commercecart/models/orders.dart';
-import 'package:commercecart/models/product.dart';
-import 'package:commercecart/providers/product_provider.dart';
-import 'package:commercecart/providers/user_provider.dart';
+import '../../../constants/globals.dart';
+import '../../../constants/utils.dart';
+import '../../../common/services/http_error_handler.dart';
+import '../../../models/analytics.dart';
+import '../../../models/orders.dart';
+import '../../../models/product.dart';
+import '../../../providers/product_provider.dart';
+import '../../../providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -72,7 +72,7 @@ class AdminService {
     return imageUrls;
   }
 
-  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+  Future<List<Product>> fetchProductListed(BuildContext context) async {
     final userProvider = context.read<UserProvider>();
     List<Product> products = [];
     try {

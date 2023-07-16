@@ -7,8 +7,8 @@ import 'package:commercecart/common/widgets/admin_bottom_bar.dart';
 import 'package:commercecart/common/widgets/user_bottombar.dart';
 import 'package:commercecart/constants/globals.dart';
 import 'package:commercecart/constants/utils.dart';
-import 'package:commercecart/features/auth/screens/login_screen.dart';
-import 'package:commercecart/features/auth/services/http_error_handler.dart';
+import 'package:commercecart/features/auth/screens/login/screens/login_screen.dart';
+import 'package:commercecart/common/services/http_error_handler.dart';
 import 'package:commercecart/providers/user_provider.dart';
 import 'package:commercecart/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
@@ -127,10 +127,13 @@ class AuthService {
 
   Future<void> logout(BuildContext context) async {
     try {
+      Loader().showLoadingDialog(context);
       await preference.setUserToken(Globals.AUTHTOKEN, "");
+      Loader().closeLoadingDialog(context);
       Navigator.pushNamedAndRemoveUntil(
           context, LoginScreen.routeName, (route) => false);
     } catch (e) {
+      Loader().closeLoadingDialog(context);
       showSnackbar(context, e.toString());
     }
   }
