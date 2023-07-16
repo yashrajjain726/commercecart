@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class PaymnentScreen extends StatefulWidget {
   final double amount;
-  static const routeName = '/confirm-address';
+  static const routeName = '/payment';
   const PaymnentScreen({
     Key? key,
     required this.amount,

@@ -1,5 +1,5 @@
 import '../../../services/admin_service.dart';
-import '../../../../order/screens/order_detail_screen.dart';
+import '../../../order_detail_screen.dart';
 import '../../../../../models/orders.dart';
 import 'package:flutter/material.dart';
 

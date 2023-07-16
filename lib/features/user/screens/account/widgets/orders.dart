@@ -1,4 +1,4 @@
-import '../../../../order/screens/order_detail_screen.dart';
+import '../../../../admin/order_detail_screen.dart';
 import '../../../services/user_service.dart';
 import '../../../../../models/orders.dart';
 import 'order_item.dart';

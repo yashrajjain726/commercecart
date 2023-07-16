@@ -4,7 +4,7 @@ import 'constants/globals.dart';
 import 'constants/routes.dart';
 import 'features/auth/screens/login/screens/login_screen.dart';
 import 'features/auth/services/auth_service.dart';
-import 'features/splash/screens/splash_screen.dart';
+import 'features/common/splash/screens/splash_screen.dart';
 import 'providers/product_provider.dart';
 import 'providers/user_provider.dart';
 import 'package:flutter/material.dart';

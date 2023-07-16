@@ -1,12 +1,12 @@
-import '../../../common/ui_widgets/custom_textfield.dart';
-import '../../../common/ui_widgets/custom_button.dart';
-import '../../../constants/utils.dart';
-import '../../../providers/user_provider.dart';
+import '../../../../common/ui_widgets/custom_textfield.dart';
+import '../../../../common/ui_widgets/custom_button.dart';
+import '../../../../constants/utils.dart';
+import '../../../../providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AdminProfileScreen extends StatefulWidget {
-  static const routeName = '/admin-profile';
+  static const routeName = '/profile';
   const AdminProfileScreen({super.key});
 
   @override

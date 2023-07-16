@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../../../../common/widgets/custom_button.dart';
 
 class AddressScreen extends StatefulWidget {
-  static const routeName = '/address';
+  static const routeName = '/set-address';
   const AddressScreen({super.key});
 
   @override

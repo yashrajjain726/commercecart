@@ -1,3 +1,4 @@
+import 'package:commercecart/features/admin/screens/product_listing/widgets/product_listing_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,7 +6,6 @@ import '../../../../../constants/globals.dart';
 import '../../../../../providers/product_provider.dart';
 import '../../../services/admin_service.dart';
 import '../../add_product/screens/add_product_screen.dart';
-import '../widgets/product_item.dart';
 
 class ProductListingScreen extends StatefulWidget {
   const ProductListingScreen({super.key});
@@ -40,7 +40,18 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                   ? const Center(
                       child: Text('No, Products added yet.'),
                     )
-                  : const ProductListingItem(),
+                  : GridView.builder(
+                      itemCount: products.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+
+                        return ProductListingItem(
+                            product: product, index: index);
+                      },
+                    ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: GestureDetector(

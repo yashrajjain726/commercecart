@@ -2,7 +2,7 @@ import '../../features/admin/screens/orders_received/screens/orders_received_scr
 import '../../features/admin/screens/product_listing/screens/product_listing_screen.dart';
 
 import '../../constants/globals.dart';
-import '../../features/profile/screens/profile_screen.dart';
+import '../../features/common/profile/screens/profile_screen.dart';
 import '../../features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import '../../features/admin/screens/earning_analytics/screens/earning_analytics_screen.dart';
