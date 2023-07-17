@@ -1,3 +1,5 @@
+import 'package:commercecart/features/user/services/user_service.dart';
+
 import '../../../../common/ui_widgets/custom_textfield.dart';
 import '../../../../common/ui_widgets/custom_button.dart';
 import '../../../../constants/utils.dart';
@@ -18,14 +20,20 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
   final GlobalKey<FormState> _updateKey = GlobalKey();
   late TextEditingController _nameController;
   late TextEditingController _addressController;
+  final UserService userService = UserService();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _nameController =
-        TextEditingController(text: context.read<UserProvider>().user.name);
+        TextEditingController(text: context.watch<UserProvider>().user.name);
     _addressController =
-        TextEditingController(text: context.read<UserProvider>().user.address);
+        TextEditingController(text: context.watch<UserProvider>().user.address);
   }
 
   @override
@@ -99,9 +107,10 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                         text: 'Save',
                         onPressed: () {
                           if (_updateKey.currentState!.validate()) {
-                            // setState(() {
-                            //   isEditEnabled = !isEditEnabled;
-                            // });
+                            userService.updateUserData(
+                                context: context,
+                                address: _addressController.text,
+                                name: _nameController.text);
                           }
                         })
                     : const SizedBox.shrink()

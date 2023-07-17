@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:commercecart/common/ui_widgets/loader.dart';
+
 import '../../../constants/globals.dart';
 import '../../../constants/utils.dart';
 import '../../../common/services/http_error_handler.dart';
@@ -28,12 +30,45 @@ class UserService {
           response: response,
           context: context,
           onSuccess: () {
-            User user = userProvider.user
-                .copyWith(address: jsonDecode(response.body)['address']);
+            User user = userProvider.user.copyWith(
+              address: jsonDecode(response.body)['address'],
+            );
             userProvider.setUserfromModel(user);
             Navigator.pop(context);
           });
     } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  updateUserData(
+      {required BuildContext context,
+      required String address,
+      required String name}) async {
+    final userProvider = context.read<UserProvider>();
+    Loader().showLoadingDialog(context);
+    try {
+      http.Response response =
+          await http.post(Uri.parse('${Globals.URI}/api/user/update'),
+              headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'x-auth-token': userProvider.user.token
+              },
+              body: jsonEncode({'address': address, 'name': name}));
+      print(response);
+      httpErrorHandler(
+          response: response,
+          context: context,
+          onSuccess: () {
+            Loader().closeLoadingDialog(context);
+            User user = userProvider.user.copyWith(
+                address: jsonDecode(response.body)['address'],
+                name: jsonDecode(response.body)['name']);
+            userProvider.setUserfromModel(user);
+            Navigator.pop(context);
+          });
+    } catch (e) {
+      Loader().closeLoadingDialog(context);
       showSnackbar(context, e.toString());
     }
   }

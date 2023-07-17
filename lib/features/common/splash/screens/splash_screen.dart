@@ -19,8 +19,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final AuthService authService = AuthService();
-
   @override
   void initState() {
     super.initState();
@@ -28,8 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigationCondition() async {
-    await authService.getUserData(context);
-
     Timer(const Duration(seconds: 2), () {
       context.read<UserProvider>().user.token.isNotEmpty
           ? (context.read<UserProvider>().user.type == "user")

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../common/ui_widgets/custom_button.dart';
-import '../../../../../constants/globals.dart';
 import '../../../../../providers/product_provider.dart';
 import '../../../services/admin_service.dart';
 import '../../add_product/screens/add_product_screen.dart';
