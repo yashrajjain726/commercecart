@@ -11,26 +11,26 @@ Technology used:
 - Express - Used to create APIs for the app
 - Provider - Used in frontend to manage state
 
-## Structure & Features
-
-Admin Features:
-
-- User can view the category based products
-- User can see deal of the deal
-- User can order the product
-- User can rate the product
-- User can add its address, where it want to get it delivered
-- User can view order's of there
-- User can search product from the whole product DB
+## Structure and Features
 
 User Features:
 
+- Users can view the category-based products
+- User can see the details of the deal
+- User can order the product
+- User can rate the product
+- User can add its address and where it wants to get it delivered
+- Users can view orders from there
+- Users can search products from the whole product database.
+
+Admin Features:
+
 - Admin can add products according to categories for selling
-- Admin can delete there product, it they don't wish to continue selling the product
-- Admin can see there earning's i.e total earning and also based on category
-- Admin can see the order's they have received from the customers
+- Admin can delete their product if they don't wish to continue selling the product
+- Admin can see their earnings i.e total earnings and also based on category
+- Admin can see the orders they have received from the customers
 - Admin can modify the current status of the order, i.e pending, received, delivered, done
-- Admin can delete there product, it they don't wish to continue selling the product
+- Admin can delete their product if they don't wish to continue selling the product
 
 ## Test account:
 
